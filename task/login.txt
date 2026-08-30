@@ -1,0 +1,25 @@
+Bertindaklah sebagai Senior Frontend Developer & UI/UX Designer. Buatkan komponen Login yang bersih, modern, dan responsif dengan spesifikasi berikut:
+
+1. Konteks & User Flow:
+- Komponen ini dipicu saat pengguna mengklik menu "Login" di Halaman Utama (Home Page).
+- Tampilkan sebagai Modal/Dialog melayang dengan backdrop blur (overlay) yang bisa ditutup kembali ke Home Page, ATAU sebagai halaman login khusus.
+
+2. Struktur & Elemen Input:
+- Input 1: Email (type="email", placeholder: "contoh@email.com", dilengkapi ikon amplop/email di sisi kiri).
+- Input 2: Password (type="password", dilengkapi ikon kunci dan tombol toggle mata/eye icon untuk melihat/menyembunyikan password).
+- Tombol Utama: Button "Masuk" / "Login" (Primary button, full-width, kontras).
+- Aksesibilitas: Tombol "Lupa Password?" di sebelah kanan atas field password, serta navigasi "Belum punya akun? Daftar" di bagian bawah card.
+- Jika berbentuk Modal: Sediakan tombol close ('X') di pojok kanan atas modal.
+
+3. Validasi & State Handling:
+- Validasi Input Client-Side:
+  * Format email wajib valid (mengandung '@' dan domain).
+  * Password tidak boleh kosong (minimal 8 karakter).
+- Tampilkan pesan error berukuran kecil berwarna merah tepat di bawah field yang bermasalah jika validasi gagal.
+- Tampilan State:
+  * State Default, Hover, dan Focus (border glow/highlight).
+  * State Loading (spinner & tombol ter-disable) saat tombol login diklik.
+
+4. Desain & UX:
+- Gaya visual: Minimalis, rounded corners (border-radius), bayangan lembut (card shadow), dan tipografi yang jelas.
+- Responsif penuh untuk layar Mobile, Tablet, dan Desktop.

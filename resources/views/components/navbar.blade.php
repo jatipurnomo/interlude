@@ -61,8 +61,34 @@
                         <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size: 0.6rem;">0</span>
                     </a>
                     
-                    <!-- Login/Register -->
-                    <a href="#" class="btn btn-primary btn-sm">Login</a>
+                    <!-- Login/Register or User Menu -->
+                    @auth
+                        <!-- User Dropdown -->
+                        <div class="dropdown">
+                            <button class="btn btn-light btn-sm dropdown-toggle" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fas fa-user me-2"></i>{{ auth()->user()->name }}
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                                <li><a class="dropdown-item" href="#"><i class="fas fa-cog me-2"></i>Pengaturan</a></li>
+                                <li><a class="dropdown-item" href="#"><i class="fas fa-heart me-2"></i>Wishlist Saya</a></li>
+                                <li><a class="dropdown-item" href="#"><i class="fas fa-receipt me-2"></i>Pesanan Saya</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li>
+                                    <form method="POST" action="{{ route('logout') }}" class="d-inline">
+                                        @csrf
+                                        <button type="submit" class="dropdown-item text-danger">
+                                            <i class="fas fa-sign-out-alt me-2"></i>Logout
+                                        </button>
+                                    </form>
+                                </li>
+                            </ul>
+                        </div>
+                    @else
+                        <!-- Login Button (Trigger Modal) -->
+                        <a href="#" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#loginModal">
+                            <i class="fas fa-sign-in-alt me-1"></i>Login
+                        </a>
+                    @endauth
                 </div>
             </div>
         </div>
