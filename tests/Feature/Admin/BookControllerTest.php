@@ -139,6 +139,18 @@ class BookControllerTest extends TestCase
         $response->assertDontSee('Another Book');
     }
 
+    public function test_books_menu_is_active_on_book_pages(): void
+    {
+        $admin = User::factory()->create(['role' => 'admin']);
+
+        $response = $this->actingAs($admin)->get(route('admin.books.index'));
+
+        $response->assertOk();
+        $response->assertSee('href="'.route('admin.books.index').'"', false);
+        $response->assertSee('class="sidebar-link active"', false);
+        $response->assertSee('aria-current="page"', false);
+    }
+
     public function test_book_list_renders_bootstrap_pagination(): void
     {
         $admin = User::factory()->create(['role' => 'admin']);
