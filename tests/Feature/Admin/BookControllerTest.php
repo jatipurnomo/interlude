@@ -138,4 +138,17 @@ class BookControllerTest extends TestCase
         $response->assertSee('Searchable Title');
         $response->assertDontSee('Another Book');
     }
+
+    public function test_book_list_renders_bootstrap_pagination(): void
+    {
+        $admin = User::factory()->create(['role' => 'admin']);
+        Book::factory()->count(11)->create();
+
+        $response = $this->actingAs($admin)->get(route('admin.books.index'));
+
+        $response->assertOk();
+        $response->assertSee('book-pagination');
+        $response->assertSee('page-link');
+        $response->assertSee('rel="next"', false);
+    }
 }

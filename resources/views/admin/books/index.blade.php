@@ -28,7 +28,11 @@
                     <td class="text-end"><div class="d-inline-flex gap-1"><a href="{{ route('admin.books.show', $book) }}" class="btn btn-sm btn-light" aria-label="Lihat {{ $book->title }}"><i class="bi bi-eye"></i></a><a href="{{ route('admin.books.edit', $book) }}" class="btn btn-sm btn-light" aria-label="Edit {{ $book->title }}"><i class="bi bi-pencil"></i></a><form method="POST" action="{{ route('admin.books.destroy', $book) }}" onsubmit="return confirm('Hapus buku ini?')">@csrf @method('DELETE')<button class="btn btn-sm btn-outline-danger" type="submit" aria-label="Hapus {{ $book->title }}"><i class="bi bi-trash"></i></button></form></div></td>
                 </tr>@endforeach</tbody>
             </table></div>
-            <div class="mt-4">{{ $books->links() }}</div>
+            @if ($books->hasPages())
+                <nav class="book-pagination mt-4" aria-label="Navigasi halaman buku">
+                    {{ $books->links('pagination::bootstrap-5') }}
+                </nav>
+            @endif
         @endif
     </section>
 </div>
