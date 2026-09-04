@@ -8,7 +8,7 @@
         <p class="sidebar-label">Workspace</p>
         <nav class="sidebar-nav" aria-label="Dashboard navigation">
             <a class="sidebar-link active" href="{{ route('dashboard') }}" aria-current="page"><i class="bi bi-grid-1x2-fill" aria-hidden="true"></i><span>Dashboard</span></a>
-            <a class="sidebar-link" href="#"><i class="bi bi-people" aria-hidden="true"></i><span>Users</span></a>
+            <a class="sidebar-link" href="{{ route('admin.books.index') }}"><i class="bi bi-journal-bookmark" aria-hidden="true"></i><span>Books</span></a>
             <a class="sidebar-link" href="#"><i class="bi bi-bar-chart-line" aria-hidden="true"></i><span>Reports</span></a>
             <a class="sidebar-link" href="#"><i class="bi bi-sliders2" aria-hidden="true"></i><span>Settings</span></a>
         </nav>

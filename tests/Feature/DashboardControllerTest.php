@@ -19,7 +19,7 @@ class DashboardControllerTest extends TestCase
 
     public function test_authenticated_user_can_view_dashboard_data(): void
     {
-        $user = User::factory()->create(['name' => 'John Doe']);
+        $user = User::factory()->create(['name' => 'John Doe', 'role' => 'admin']);
 
         $response = $this->actingAs($user)->get('/dashboard');
 
@@ -29,7 +29,7 @@ class DashboardControllerTest extends TestCase
         $response->assertSee('Total Users');
         $response->assertSee('Transaction Overview');
         $response->assertSee('Recent Activity');
-        $response->assertSee('Administrator');
+        $response->assertSee('admin');
     }
 
     public function test_authenticated_user_can_logout_from_dashboard_flow(): void
