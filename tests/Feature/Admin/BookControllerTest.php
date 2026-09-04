@@ -106,6 +106,7 @@ class BookControllerTest extends TestCase
         $oldCover = $book->cover_image;
 
         Storage::disk('public')->assertExists($oldCover);
+        $this->assertSame('/storage/'.$oldCover, $book->cover_image_url);
 
         $this->actingAs($admin)->put(route('admin.books.update', $book), [
             'title' => $book->title,

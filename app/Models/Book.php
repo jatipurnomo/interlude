@@ -5,7 +5,6 @@ namespace App\Models;
 use Database\Factories\BookFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class Book extends Model
@@ -23,7 +22,7 @@ class Book extends Model
             return $this->cover_image;
         }
 
-        return Storage::disk('public')->url($this->cover_image);
+        return '/storage/'.ltrim($this->cover_image, '/');
     }
 
     /**
