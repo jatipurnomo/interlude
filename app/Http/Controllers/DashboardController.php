@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Str;
 use Illuminate\View\View;
 
 class DashboardController extends Controller
@@ -11,15 +10,10 @@ class DashboardController extends Controller
     public function index(): View
     {
         $user = Auth::user();
-        $userInitials = collect(explode(' ', trim($user->name)))
-            ->filter()
-            ->take(2)
-            ->map(fn (string $name): string => Str::upper(Str::substr($name, 0, 1)))
-            ->implode('');
 
         return view('dashboard.index', [
             'user' => $user,
-            'userInitials' => $userInitials,
+            'userInitials' => $user->initials(),
             'userRole' => data_get($user, 'role', 'Administrator'),
             'statistics' => [
                 ['label' => 'Total Users', 'value' => '1,250', 'change' => '+12%', 'trend' => 'up'],

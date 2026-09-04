@@ -7,7 +7,7 @@
         <form class="dashboard-search" role="search"><i class="bi bi-search" aria-hidden="true"></i><input type="search" placeholder="Search dashboard" aria-label="Search dashboard"></form>
         <button class="icon-button notification-button" type="button" aria-label="View notifications"><i class="bi bi-bell" aria-hidden="true"></i><span class="notification-dot"></span></button>
         <div class="dropdown">
-            <button class="profile-trigger" type="button" data-bs-toggle="dropdown" aria-expanded="false"><span class="avatar avatar-small">{{ $userInitials }}</span><span class="d-none d-sm-block text-start"><strong>{{ $user->name }}</strong><small>{{ $userRole }}</small></span><i class="bi bi-chevron-down d-none d-sm-inline" aria-hidden="true"></i></button>
+            <button class="profile-trigger" type="button" data-bs-toggle="dropdown" aria-expanded="false"><span class="avatar avatar-small">{{ auth()->user()->initials() }}</span><span class="d-none d-sm-block text-start"><strong>{{ auth()->user()->name }}</strong><small>{{ data_get(auth()->user(), 'role', 'Administrator') }}</small></span><i class="bi bi-chevron-down d-none d-sm-inline" aria-hidden="true"></i></button>
             <ul class="dropdown-menu dropdown-menu-end profile-menu">
                 <li><a class="dropdown-item" href="#"><i class="bi bi-person me-2"></i>Profile</a></li>
                 <li><a class="dropdown-item" href="#"><i class="bi bi-sliders2 me-2"></i>Settings</a></li>

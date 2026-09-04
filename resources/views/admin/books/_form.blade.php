@@ -1,0 +1,73 @@
+@csrf
+<div class="row g-4">
+    <div class="col-lg-8">
+        <div class="card border-0 shadow-sm h-100">
+            <div class="card-body p-4">
+                <h2 class="h5 mb-4">Book information</h2>
+                <div class="mb-3">
+                    <label for="title" class="form-label">Judul Buku</label>
+                    <input id="title" name="title" type="text" value="{{ old('title', $book->title ?? '') }}" class="form-control @error('title') is-invalid @enderror" required>
+                    @error('title')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                </div>
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label for="author" class="form-label">Penulis</label>
+                        <input id="author" name="author" type="text" value="{{ old('author', $book->author ?? '') }}" class="form-control @error('author') is-invalid @enderror" required>
+                        @error('author')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                    </div>
+                    <div class="col-md-6">
+                        <label for="category" class="form-label">Kategori</label>
+                        <input id="category" name="category" type="text" value="{{ old('category', $book->category ?? '') }}" class="form-control @error('category') is-invalid @enderror" required>
+                        @error('category')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                    </div>
+                    <div class="col-md-6">
+                        <label for="price" class="form-label">Harga (Rp)</label>
+                        <input id="price" name="price" type="number" min="0" step="0.01" value="{{ old('price', $book->price ?? '') }}" class="form-control @error('price') is-invalid @enderror" required>
+                        @error('price')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                    </div>
+                    <div class="col-md-6">
+                        <label for="isbn" class="form-label">ISBN <span class="text-muted">(opsional)</span></label>
+                        <input id="isbn" name="isbn" type="text" value="{{ old('isbn', $book->isbn ?? '') }}" class="form-control @error('isbn') is-invalid @enderror">
+                        @error('isbn')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                    </div>
+                </div>
+                <div class="mt-3 mb-3">
+                    <label for="cover_image" class="form-label">Cover Image URL <span class="text-muted">(opsional)</span></label>
+                    <input id="cover_image" name="cover_image" type="url" value="{{ old('cover_image', $book->cover_image ?? '') }}" class="form-control @error('cover_image') is-invalid @enderror" placeholder="https://example.com/cover.jpg">
+                    @error('cover_image')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                </div>
+                <div class="mb-0">
+                    <label for="description" class="form-label">Deskripsi <span class="text-muted">(opsional)</span></label>
+                    <textarea id="description" name="description" rows="5" class="form-control @error('description') is-invalid @enderror">{{ old('description', $book->description ?? '') }}</textarea>
+                    @error('description')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="card border-0 shadow-sm mb-4">
+            <div class="card-body p-4">
+                <h2 class="h5 mb-4">Publication</h2>
+                <label for="published_at" class="form-label">Tanggal Publikasi</label>
+                <input id="published_at" name="published_at" type="datetime-local" value="{{ old('published_at', isset($book) && $book->published_at ? $book->published_at->format('Y-m-d\TH:i') : '') }}" class="form-control @error('published_at') is-invalid @enderror">
+                @error('published_at')<div class="invalid-feedback">{{ $message }}</div>@enderror
+            </div>
+        </div>
+        <div class="card border-0 shadow-sm">
+            <div class="card-body p-4">
+                <h2 class="h5 mb-3">Homepage collections</h2>
+                @foreach(['is_new' => 'Buku Terbaru', 'is_popular' => 'Buku Populer', 'is_bestseller' => 'Bestseller'] as $field => $label)
+                    <div class="form-check mb-3">
+                        <input id="{{ $field }}" name="{{ $field }}" value="1" type="checkbox" class="form-check-input" @checked(old($field, $book->$field ?? false))>
+                        <label for="{{ $field }}" class="form-check-label">{{ $label }}</label>
+                    </div>
+                @endforeach
+                <p class="small text-muted mb-0">Views, wishlist, dan sold count dikelola otomatis oleh sistem.</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="d-flex justify-content-end gap-2 mt-4">
+    <a href="{{ route('admin.books.index') }}" class="btn btn-light">Batal</a>
+    <button type="submit" class="btn btn-primary"><i class="bi bi-check2 me-1"></i>{{ isset($book) ? 'Simpan Perubahan' : 'Simpan Buku' }}</button>
+</div>
