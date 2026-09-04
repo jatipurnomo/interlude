@@ -2,7 +2,7 @@
 <div class="book-card card h-100 shadow-sm border-0 overflow-hidden">
     <!-- Book Cover Image with Badge -->
     <div class="book-cover position-relative overflow-hidden" style="height: 280px; background: #f5f1ed;">
-        <img src="{{ $book->cover_image }}" 
+        <img src="{{ $book->cover_image_url ?: 'https://via.placeholder.com/200x300?text=Book' }}"
              alt="{{ $book->title }}" 
              class="card-img-top h-100 object-fit-cover" 
              loading="lazy"
@@ -35,7 +35,7 @@
     <!-- Card Body -->
     <div class="card-body d-flex flex-column">
         <!-- Title -->
-        <h6 class="card-title fw-bold text-dark mb-1" style="font-family: 'Lora', serif; line-height: 1.4;">
+        <h6 class="card-title fw-bold text-dark mb-1" style="font-family: 'Poppins', sans-serif; line-height: 1.4;">
             {{ Str::limit($book->title, 50) }}
         </h6>
         

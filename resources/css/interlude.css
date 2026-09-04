@@ -22,7 +22,7 @@ html, body {
 }
 
 h1, h2, h3, h4, h5, h6 {
-    font-family: 'Lora', serif;
+    font-family: 'Poppins', sans-serif;
     font-weight: 700;
     color: var(--text-primary);
 }
@@ -40,7 +40,7 @@ p {
 }
 
 .navbar-brand {
-    font-family: 'Lora', serif;
+    font-family: 'Poppins', sans-serif;
     font-size: 1.5rem;
     color: var(--primary-color) !important;
     transition: all 0.3s ease;

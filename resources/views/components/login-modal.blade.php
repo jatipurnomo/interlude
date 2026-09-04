@@ -4,7 +4,7 @@
         <div class="modal-content shadow-lg border-0" style="border-radius: 12px;">
             <!-- Modal Header -->
             <div class="modal-header border-0 pb-0">
-                <h5 class="modal-title fw-bold" id="loginModalLabel" style="font-family: 'Lora', serif; color: #2C1810;">
+                <h5 class="modal-title fw-bold" id="loginModalLabel" style="font-family: 'Poppins', sans-serif; color: #2C1810;">
                     Masuk ke Akun Anda
                 </h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>

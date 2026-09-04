@@ -21,14 +21,18 @@
             <div class="table-responsive"><table class="table align-middle mb-0">
                 <thead><tr><th>Book</th><th>Category</th><th>Price</th><th>Collections</th><th>Stats</th><th class="text-end">Action</th></tr></thead>
                 <tbody>@foreach ($books as $book)<tr>
-                    <td><div class="d-flex align-items-center gap-3"><img src="{{ $book->cover_image ?: 'https://via.placeholder.com/48x68?text=Book' }}" alt="{{ $book->title }}" width="48" height="68" class="rounded object-fit-cover"><div><strong>{{ $book->title }}</strong><small class="d-block text-muted">{{ $book->author }}</small></div></div></td>
+                    <td><div class="d-flex align-items-center gap-3"><img src="{{ $book->cover_image_url ?: 'https://via.placeholder.com/48x68?text=Book' }}" alt="{{ $book->title }}" width="48" height="68" class="rounded object-fit-cover"><div><strong>{{ $book->title }}</strong><small class="d-block text-muted">{{ $book->author }}</small></div></div></td>
                     <td>{{ $book->category }}</td><td>Rp {{ number_format((float) $book->price, 0, ',', '.') }}</td>
                     <td><div class="d-flex flex-wrap gap-1">@if($book->is_new)<span class="badge text-bg-success">Baru</span>@endif @if($book->is_popular)<span class="badge text-bg-info">Populer</span>@endif @if($book->is_bestseller)<span class="badge text-bg-warning">Bestseller</span>@endif</div></td>
                     <td><small class="d-block">{{ number_format($book->sold_count) }} sold</small><small class="text-muted">{{ number_format($book->wishlist_count) }} wishlist</small></td>
                     <td class="text-end"><div class="d-inline-flex gap-1"><a href="{{ route('admin.books.show', $book) }}" class="btn btn-sm btn-light" aria-label="Lihat {{ $book->title }}"><i class="bi bi-eye"></i></a><a href="{{ route('admin.books.edit', $book) }}" class="btn btn-sm btn-light" aria-label="Edit {{ $book->title }}"><i class="bi bi-pencil"></i></a><form method="POST" action="{{ route('admin.books.destroy', $book) }}" onsubmit="return confirm('Hapus buku ini?')">@csrf @method('DELETE')<button class="btn btn-sm btn-outline-danger" type="submit" aria-label="Hapus {{ $book->title }}"><i class="bi bi-trash"></i></button></form></div></td>
                 </tr>@endforeach</tbody>
             </table></div>
-            <div class="mt-4">{{ $books->links() }}</div>
+            @if ($books->hasPages())
+                <nav class="book-pagination mt-4" aria-label="Navigasi halaman buku">
+                    {{ $books->links('pagination::bootstrap-5') }}
+                </nav>
+            @endif
         @endif
     </section>
 </div>

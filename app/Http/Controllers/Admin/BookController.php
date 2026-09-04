@@ -9,6 +9,8 @@ use App\Models\Book;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Illuminate\View\View;
 
 class BookController extends Controller
@@ -55,7 +57,13 @@ class BookController extends Controller
      */
     public function store(StoreBookRequest $request): RedirectResponse
     {
-        Book::create($request->validated());
+        $bookData = $request->validated();
+
+        if ($request->hasFile('cover_image')) {
+            $bookData['cover_image'] = $request->file('cover_image')->store('books', 'public');
+        }
+
+        Book::create($bookData);
 
         return redirect()->route('admin.books.index')->with('success', 'Buku berhasil ditambahkan.');
     }
@@ -85,7 +93,15 @@ class BookController extends Controller
      */
     public function update(UpdateBookRequest $request, Book $book): RedirectResponse
     {
-        $book->update($request->validated());
+        $bookData = $request->validated();
+
+        if ($request->hasFile('cover_image')) {
+            $oldCover = $book->cover_image;
+            $bookData['cover_image'] = $request->file('cover_image')->store('books', 'public');
+            $this->deleteStoredCover($oldCover);
+        }
+
+        $book->update($bookData);
 
         return redirect()->route('admin.books.show', $book)->with('success', 'Buku berhasil diperbarui.');
     }
@@ -97,8 +113,16 @@ class BookController extends Controller
     {
         Gate::authorize('delete', $book);
 
+        $this->deleteStoredCover($book->cover_image);
         $book->delete();
 
         return redirect()->route('admin.books.index')->with('success', 'Buku berhasil dihapus.');
+    }
+
+    private function deleteStoredCover(?string $coverPath): void
+    {
+        if ($coverPath !== null && ! Str::startsWith($coverPath, ['http://', 'https://'])) {
+            Storage::disk('public')->delete($coverPath);
+        }
     }
 }
