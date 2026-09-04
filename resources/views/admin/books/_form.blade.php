@@ -32,9 +32,13 @@
                     </div>
                 </div>
                 <div class="mt-3 mb-3">
-                    <label for="cover_image" class="form-label">Cover Image URL <span class="text-muted">(opsional)</span></label>
-                    <input id="cover_image" name="cover_image" type="url" value="{{ old('cover_image', $book->cover_image ?? '') }}" class="form-control @error('cover_image') is-invalid @enderror" placeholder="https://example.com/cover.jpg">
+                    <label for="cover_image" class="form-label">Cover Buku <span class="text-muted">(opsional)</span></label>
+                    <input id="cover_image" name="cover_image" type="file" accept="image/jpeg,image/png,image/webp" class="form-control @error('cover_image') is-invalid @enderror">
+                    <div class="form-text">Format JPG, PNG, atau WebP. Maksimal 2 MB.</div>
                     @error('cover_image')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                    @if (!empty($book?->cover_image_url))
+                        <img src="{{ $book->cover_image_url }}" alt="Cover {{ $book->title }}" class="img-thumbnail mt-3" style="max-height: 180px;">
+                    @endif
                 </div>
                 <div class="mb-0">
                     <label for="description" class="form-label">Deskripsi <span class="text-muted">(opsional)</span></label>

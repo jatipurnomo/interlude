@@ -2,7 +2,7 @@
 <div class="book-card card h-100 shadow-sm border-0 overflow-hidden">
     <!-- Book Cover Image with Badge -->
     <div class="book-cover position-relative overflow-hidden" style="height: 280px; background: #f5f1ed;">
-        <img src="{{ $book->cover_image }}" 
+        <img src="{{ $book->cover_image_url ?: 'https://via.placeholder.com/200x300?text=Book' }}"
              alt="{{ $book->title }}" 
              class="card-img-top h-100 object-fit-cover" 
              loading="lazy"

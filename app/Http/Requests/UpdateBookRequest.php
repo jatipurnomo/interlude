@@ -25,7 +25,7 @@ class UpdateBookRequest extends FormRequest
         return [
             'title' => ['required', 'string', 'min:2', 'max:255'],
             'author' => ['required', 'string', 'min:2', 'max:255'],
-            'cover_image' => ['nullable', 'url', 'max:2048'],
+            'cover_image' => ['sometimes', 'nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
             'price' => ['required', 'numeric', 'min:0', 'max:99999999.99'],
             'category' => ['required', 'string', 'max:100'],
             'description' => ['nullable', 'string'],

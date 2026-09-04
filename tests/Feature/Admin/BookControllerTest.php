@@ -5,6 +5,8 @@ namespace Tests\Feature\Admin;
 use App\Models\Book;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 
 class BookControllerTest extends TestCase
@@ -33,7 +35,6 @@ class BookControllerTest extends TestCase
         $bookData = [
             'title' => 'The Quiet Library',
             'author' => 'Mara Ellis',
-            'cover_image' => 'https://example.com/quiet-library.jpg',
             'price' => 85000,
             'category' => 'Fiksi',
             'description' => 'A story about books and belonging.',
@@ -81,10 +82,47 @@ class BookControllerTest extends TestCase
             'author' => '',
             'price' => -1,
             'category' => '',
-            'cover_image' => 'not-a-url',
+            'cover_image' => UploadedFile::fake()->create('cover.gif', 100, 'image/gif'),
         ]);
 
         $response->assertSessionHasErrors(['title', 'author', 'price', 'category', 'cover_image']);
+    }
+
+    public function test_admin_can_upload_replace_and_delete_book_cover(): void
+    {
+        Storage::fake('public');
+        $admin = User::factory()->create(['role' => 'admin']);
+
+        $bookData = [
+            'title' => 'A Book With A Cover',
+            'author' => 'Mara Ellis',
+            'price' => 85000,
+            'category' => 'Fiksi',
+            'cover_image' => UploadedFile::fake()->image('first-cover.jpg'),
+        ];
+
+        $this->actingAs($admin)->post(route('admin.books.store'), $bookData);
+        $book = Book::query()->where('title', $bookData['title'])->firstOrFail();
+        $oldCover = $book->cover_image;
+
+        Storage::disk('public')->assertExists($oldCover);
+
+        $this->actingAs($admin)->put(route('admin.books.update', $book), [
+            'title' => $book->title,
+            'author' => $book->author,
+            'price' => $book->price,
+            'category' => $book->category,
+            'cover_image' => UploadedFile::fake()->image('replacement-cover.png'),
+        ]);
+
+        $newCover = $book->refresh()->cover_image;
+        $this->assertNotSame($oldCover, $newCover);
+        Storage::disk('public')->assertMissing($oldCover);
+        Storage::disk('public')->assertExists($newCover);
+
+        $this->actingAs($admin)->delete(route('admin.books.destroy', $book));
+
+        Storage::disk('public')->assertMissing($newCover);
     }
 
     public function test_admin_can_search_books(): void
