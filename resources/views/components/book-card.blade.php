@@ -35,7 +35,7 @@
     <!-- Card Body -->
     <div class="card-body d-flex flex-column">
         <!-- Title -->
-        <h6 class="card-title fw-bold text-dark mb-1" style="font-family: 'Lora', serif; line-height: 1.4;">
+        <h6 class="card-title fw-bold text-dark mb-1" style="font-family: 'Poppins', sans-serif; line-height: 1.4;">
             {{ Str::limit($book->title, 50) }}
         </h6>
         

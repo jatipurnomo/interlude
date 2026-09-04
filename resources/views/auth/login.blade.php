@@ -11,7 +11,7 @@
             <div class="card shadow-lg border-0" style="border-radius: 12px;">
                 <!-- Card Header -->
                 <div class="card-header border-0 bg-transparent" style="padding: 40px 40px 0 40px;">
-                    <h2 class="card-title fw-bold text-center mb-2" style="font-family: 'Lora', serif; color: #2C1810;">
+                    <h2 class="card-title fw-bold text-center mb-2" style="font-family: 'Poppins', sans-serif; color: #2C1810;">
                         Masuk ke Akun Anda
                     </h2>
                     <p class="text-muted text-center small mb-0">
