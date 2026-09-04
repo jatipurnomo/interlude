@@ -12,10 +12,6 @@
         </nav>
         <div class="sidebar-footer">
             <a class="sidebar-link" href="{{ route('home') }}"><i class="bi bi-arrow-left" aria-hidden="true"></i><span>Back to site</span></a>
-            <form method="POST" action="{{ route('logout') }}">
-                @csrf
-                <button class="sidebar-link sidebar-logout w-100 border-0" type="submit"><i class="bi bi-box-arrow-right" aria-hidden="true"></i><span>Logout</span></button>
-            </form>
         </div>
     </div>
 </aside>

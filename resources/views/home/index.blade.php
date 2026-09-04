@@ -5,36 +5,42 @@
 @section('content')
 
 <!-- Hero Section -->
-<section class="hero">
+<section class="hero homepage-hero" data-reveal>
     <div class="container">
         <div class="row align-items-center">
-            <div class="col-lg-8 hero-content">
+            <div class="col-lg-7 hero-content">
+                <p class="hero-kicker">Interlude Publishing House</p>
                 <h1>Setiap Buku, Sebuah Jeda untuk Berpikir</h1>
                 <p class="lead">
                     Jelajahi dunia penuh inspirasi, pengetahuan, dan cerita yang akan mengubah cara Anda memandang dunia.
                 </p>
                 <div class="d-flex gap-3">
-                    <a href="#newest-books" class="btn btn-primary btn-lg">
+                    <a href="#newest-books" class="btn btn-primary btn-lg hero-cta">
                         <i class="fas fa-search me-2"></i>Jelajahi Koleksi
                     </a>
-                    <a href="#" class="btn btn-outline-light btn-lg">
+                    <a href="#popular-books" class="btn btn-outline-light btn-lg">
                         <i class="fas fa-info-circle me-2"></i>Pelajari Lebih Lanjut
                     </a>
                 </div>
             </div>
-            <div class="col-lg-4 text-center">
-                <img src="https://via.placeholder.com/300x400?text=Featured+Book" 
+            <div class="col-lg-5 text-center hero-art">
+                <div class="hero-orbit hero-orbit-one"></div>
+                <div class="hero-orbit hero-orbit-two"></div>
+                <div class="hero-book-frame">
+                <img src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&w=700&q=85"
                      alt="Buku Unggulan" 
                      class="img-fluid rounded shadow" 
                      loading="lazy"
                      style="max-width: 100%;">
+                 </div>
+                 <span class="hero-caption">A new chapter awaits</span>
             </div>
         </div>
     </div>
 </section>
 
 <!-- Buku Terbaru Section -->
-<section class="book-section" id="newest-books">
+<section class="book-section animated-section" id="newest-books" data-reveal>
     <div class="container">
         <!-- Section Header -->
         <div class="section-header mb-5">
@@ -51,7 +57,7 @@
         <div class="row g-4">
             @if($newBooks->count() > 0)
                 @foreach($newBooks as $book)
-                    <div class="col-lg-3 col-md-4 col-sm-6">
+                    <div class="col-lg-3 col-md-4 col-sm-6 reveal-item" style="--reveal-delay: {{ $loop->index * 80 }}ms;">
                         @include('components.book-card', [
                             'book' => $book,
                             'badge' => ['class' => 'badge-new', 'text' => 'BARU'],
@@ -69,7 +75,7 @@
 </section>
 
 <!-- Buku Populer Section -->
-<section class="book-section" id="popular-books">
+<section class="book-section animated-section" id="popular-books" data-reveal>
     <div class="container">
         <!-- Section Header -->
         <div class="section-header mb-5">
@@ -86,7 +92,7 @@
         <div class="row g-4">
             @if($popularBooks->count() > 0)
                 @foreach($popularBooks as $book)
-                    <div class="col-lg-3 col-md-4 col-sm-6">
+                    <div class="col-lg-3 col-md-4 col-sm-6 reveal-item" style="--reveal-delay: {{ $loop->index * 80 }}ms;">
                         @include('components.book-card', [
                             'book' => $book,
                             'badge' => ['class' => 'badge-popular', 'text' => 'POPULER'],
@@ -104,7 +110,7 @@
 </section>
 
 <!-- Buku Paling Laris Section -->
-<section class="book-section" id="bestseller-books">
+<section class="book-section animated-section" id="bestseller-books" data-reveal>
     <div class="container">
         <!-- Section Header -->
         <div class="section-header mb-5">
@@ -121,7 +127,7 @@
         <div class="row g-4">
             @if($bestsellerBooks->count() > 0)
                 @foreach($bestsellerBooks as $book)
-                    <div class="col-lg-3 col-md-4 col-sm-6">
+                    <div class="col-lg-3 col-md-4 col-sm-6 reveal-item" style="--reveal-delay: {{ $loop->index * 80 }}ms;">
                         @include('components.book-card', [
                             'book' => $book,
                             'badge' => ['class' => 'badge-bestseller', 'text' => 'BEST SELLER'],
@@ -139,7 +145,7 @@
 </section>
 
 <!-- CTA Section -->
-<section class="py-5" style="background: linear-gradient(135deg, #f5f1ed 0%, #e8dfd5 100%);">
+<section class="homepage-cta py-5" data-reveal>
     <div class="container">
         <div class="row">
             <div class="col-lg-8 mx-auto text-center">
@@ -162,11 +168,16 @@
 
 @section('scripts')
 <script>
-    // Lazy loading for images
-    document.addEventListener('DOMContentLoaded', function() {
-        // Modern browsers support loading="lazy" natively
-        // For older browsers, you can add a library like Lazysizes
-    });
+    const revealItems = document.querySelectorAll('[data-reveal], .reveal-item');
+    const revealObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+        });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px' });
+
+    revealItems.forEach((item) => revealObserver.observe(item));
 
     // Smooth scroll for links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -181,14 +192,5 @@
         });
     });
 
-    // Book card hover effect
-    document.querySelectorAll('.book-card').forEach(card => {
-        card.addEventListener('mouseenter', function() {
-            this.style.transform = 'translateY(-5px)';
-        });
-        card.addEventListener('mouseleave', function() {
-            this.style.transform = 'translateY(0)';
-        });
-    });
 </script>
 @endsection
