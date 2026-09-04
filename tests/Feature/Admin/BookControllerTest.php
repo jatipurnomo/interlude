@@ -137,6 +137,7 @@ class BookControllerTest extends TestCase
         $response->assertOk();
         $response->assertSee('Searchable Title');
         $response->assertDontSee('Another Book');
+        $response->assertSee('<h1 class="page-title mb-0">Books</h1>', false);
     }
 
     public function test_books_menu_is_active_on_book_pages(): void
@@ -149,6 +150,7 @@ class BookControllerTest extends TestCase
         $response->assertSee('href="'.route('admin.books.index').'"', false);
         $response->assertSee('class="sidebar-link active"', false);
         $response->assertSee('aria-current="page"', false);
+        $response->assertDontSee('>Reports<', false);
     }
 
     public function test_book_list_renders_bootstrap_pagination(): void
