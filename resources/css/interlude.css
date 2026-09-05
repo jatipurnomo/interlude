@@ -298,6 +298,186 @@ p {
     color: #999;
 }
 
+/* ========================================
+   Search Results
+   ======================================== */
+
+.search-page {
+    min-height: 60vh;
+    padding: 64px 0 80px;
+    background: #fbf9f6;
+}
+
+.search-page-header {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 24px;
+    margin-bottom: 32px;
+}
+
+.search-page-title {
+    margin-bottom: 8px;
+    color: var(--primary-color);
+}
+
+.search-page .hero-kicker {
+    color: var(--accent-color);
+}
+
+.search-page-query {
+    color: var(--accent-color);
+    font-weight: 600;
+}
+
+.search-result-card {
+    display: grid;
+    grid-template-columns: 180px minmax(0, 1fr);
+    gap: 28px;
+    height: 100%;
+    padding: 20px;
+    border: 1px solid rgba(44, 24, 16, .1);
+    border-radius: 8px;
+    background: #fff;
+    box-shadow: 0 8px 24px rgba(44, 24, 16, .07);
+    transition: transform .25s ease, box-shadow .25s ease;
+}
+
+.search-result-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 14px 30px rgba(44, 24, 16, .12);
+}
+
+.search-result-cover {
+    width: 100%;
+    aspect-ratio: 2 / 3;
+    overflow: hidden;
+    border-radius: 5px;
+    background: #e9dfd4;
+}
+
+.search-result-cover img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.search-result-cover-button {
+    position: relative;
+    padding: 0;
+    border: 0;
+    cursor: zoom-in;
+}
+
+.search-result-cover-hint {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    display: grid;
+    width: 32px;
+    height: 32px;
+    place-items: center;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, .65);
+    color: #fff;
+    opacity: 0;
+    transition: opacity .2s ease;
+}
+
+.search-result-cover-button:hover .search-result-cover-hint,
+.search-result-cover-button:focus-visible .search-result-cover-hint {
+    opacity: 1;
+}
+
+.search-result-content {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+}
+
+.search-result-title {
+    margin-bottom: 6px;
+    color: var(--primary-color);
+    font-size: 1.35rem;
+}
+
+.search-result-author {
+    color: var(--accent-color);
+    font-weight: 600;
+}
+
+.search-result-description {
+    display: -webkit-box;
+    margin: 16px 0;
+    overflow: hidden;
+    color: var(--text-secondary);
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 4;
+}
+
+.search-result-meta {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px 20px;
+    margin-top: auto;
+    padding-top: 14px;
+    border-top: 1px solid #eee7df;
+    color: var(--text-secondary);
+    font-size: .85rem;
+}
+
+.search-result-price {
+    color: var(--accent-color);
+    font-size: 1.15rem;
+    font-weight: 700;
+}
+
+.search-empty {
+    padding: 64px 24px;
+    border: 1px dashed rgba(44, 24, 16, .25);
+    border-radius: 8px;
+    background: #fff;
+    text-align: center;
+}
+
+.search-image-modal {
+    border: 0;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.search-image-modal-dialog {
+    max-width: min(94vw, 1100px);
+}
+
+.search-image-modal-preview {
+    display: block;
+    max-width: 100%;
+    max-height: 80vh;
+    margin: 0 auto;
+    object-fit: contain;
+}
+
+.search-pagination .pagination {
+    margin-bottom: 0;
+}
+
+.search-pagination .page-link {
+    color: var(--accent-color);
+    border-color: #e8ddd3;
+}
+
+.search-pagination .page-item.active .page-link {
+    background-color: var(--accent-color);
+    border-color: var(--accent-color);
+    color: #fff;
+}
+
+.search-pagination .page-link:hover {
+    color: var(--primary-color);
+    background-color: #f5eee8;
+}
+
 .book-card .btn {
     border-radius: 4px;
     font-weight: 600;
@@ -320,6 +500,7 @@ p {
 
 .social-section {
     padding: 20px 0;
+    scroll-margin-top: 90px;
 }
 
 .social-section-inner {
@@ -603,6 +784,12 @@ html {
     .social-links-grid a { min-height: 78px; }
     .social-links-grid i { font-size: 2rem; }
     .social-links-grid span { font-size: 1rem; }
+    .search-page { padding: 40px 0 56px; }
+    .search-page-header { align-items: flex-start; flex-direction: column; gap: 8px; }
+    .search-result-card { grid-template-columns: 104px minmax(0, 1fr); gap: 16px; padding: 14px; }
+    .search-result-title { font-size: 1.05rem; }
+    .search-result-description { margin: 10px 0; -webkit-line-clamp: 3; }
+    .search-result-meta { grid-template-columns: 1fr; gap: 6px; }
 }
 
 @media (prefers-reduced-motion: reduce) {

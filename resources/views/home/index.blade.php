@@ -16,10 +16,10 @@
                 </p>
                 <div class="d-flex gap-3">
                     <a href="#newest-books" class="btn btn-primary btn-lg hero-cta">
-                        <i class="fas fa-search me-2"></i>Koleksi Terbaru
+                        <i class="fas fa-book me-2"></i>Koleksi Terbaru
                     </a>
-                    <a href="#bestseller-books" class="btn btn-outline-light btn-lg">
-                        <i class="fas fa-book me-2"></i>Buku Terlaris
+                    <a href="{{ route('search') }}" class="btn btn-outline-light btn-lg">
+                        <i class="fas fa-search me-2"></i>Jelajahi Buku
                     </a>
                 </div>
             </div>
@@ -46,7 +46,11 @@
         <div class="section-header mb-5">
             <div>
                 <h2 class="section-title">Koleksi Terbaru</h2>
-                <p class="text-muted">Temukan buku-buku terbaru dari penerbit Interlude</p>
+                @if($searchTerm !== '')
+                    <p class="text-muted mb-0">Hasil pencarian untuk: <strong>{{ $searchTerm }}</strong></p>
+                @else
+                    <p class="text-muted">Temukan buku-buku terbaru dari penerbit Interlude</p>
+                @endif
             </div>
             <a href="#" class="see-all">
                 Lihat Semua <i class="fas fa-arrow-right ms-2"></i>
@@ -145,7 +149,7 @@
 </section>
 
 <!-- Social Media Section -->
-<section class="social-section" data-reveal aria-labelledby="social-section-title">
+<section class="social-section animated-section" id="social" data-reveal aria-labelledby="social-section-title">
     <div class="container">
         <div class="social-section-inner">
             <div class="social-brand">

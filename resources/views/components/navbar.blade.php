@@ -37,7 +37,7 @@
                         <a class="nav-link" href="#galeri">Galeri</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#about">Tentang Kami</a>
+                        <a class="nav-link" href="#social">Tentang Kami</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#contact">Kontak</a>
@@ -47,12 +47,12 @@
                 <!-- Search Bar & Icons -->
                 <div class="d-flex align-items-center ms-lg-3 flex-column flex-lg-row gap-2">
                     <!-- Search Bar -->
-                    <div class="input-group input-group-sm flex-grow-1">
-                        <input type="text" class="form-control" placeholder="Cari buku..." aria-label="Cari buku">
-                        <button class="btn btn-outline-primary" type="button">
+                    <form action="{{ route('search') }}" method="GET" class="input-group input-group-sm flex-grow-1" role="search">
+                        <input type="search" name="q" value="{{ request('q') }}" class="form-control" placeholder="Cari buku..." aria-label="Cari buku">
+                        <button class="btn btn-outline-primary" type="submit">
                             <i class="fas fa-search"></i>
                         </button>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>
