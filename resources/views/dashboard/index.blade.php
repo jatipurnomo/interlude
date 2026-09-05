@@ -5,7 +5,7 @@
 @section('content')
 <div class="container-fluid dashboard-container">
     <section class="welcome-panel">
-        <div><p class="eyebrow">Thursday, 04 September 2026</p><h2>Welcome back, {{ $user->name }}</h2></div>
+        <div><p class="eyebrow">{{ now()->format('l, d F Y') }}</p><h2>Welcome back, {{ $user->name }}</h2></div>
         <span class="welcome-icon"><i class="bi bi-stars" aria-hidden="true"></i></span>
     </section>
 </div>

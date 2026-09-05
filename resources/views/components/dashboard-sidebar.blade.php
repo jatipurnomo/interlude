@@ -5,7 +5,7 @@
             <span id="dashboardSidebarLabel">Interlude</span>
             <button type="button" class="btn-close btn-close-white d-lg-none ms-auto" data-bs-dismiss="offcanvas" data-bs-target="#dashboardSidebar" aria-label="Close navigation"></button>
         </div>
-        <p class="sidebar-label">Workspace</p>
+        <p class="sidebar-label">MENU</p>
         <nav class="sidebar-nav" aria-label="Dashboard navigation">
             <a class="sidebar-link {{ request()->routeIs('dashboard') ? 'active' : '' }}" href="{{ route('dashboard') }}" @if(request()->routeIs('dashboard')) aria-current="page" @endif><i class="bi bi-grid-1x2-fill" aria-hidden="true"></i><span>Dashboard</span></a>
             <a class="sidebar-link {{ request()->routeIs('admin.books.*') ? 'active' : '' }}" href="{{ route('admin.books.index') }}" @if(request()->routeIs('admin.books.*')) aria-current="page" @endif><i class="bi bi-journal-bookmark" aria-hidden="true"></i><span>Books</span></a>
