@@ -16,10 +16,10 @@
                 </p>
                 <div class="d-flex gap-3">
                     <a href="#newest-books" class="btn btn-primary btn-lg hero-cta">
-                        <i class="fas fa-search me-2"></i>Jelajahi Koleksi
+                        <i class="fas fa-search me-2"></i>Koleksi Terbaru
                     </a>
-                    <a href="#popular-books" class="btn btn-outline-light btn-lg">
-                        <i class="fas fa-info-circle me-2"></i>Pelajari Lebih Lanjut
+                    <a href="#bestseller-books" class="btn btn-outline-light btn-lg">
+                        <i class="fas fa-book me-2"></i>Buku Terlaris
                     </a>
                 </div>
             </div>
@@ -27,7 +27,7 @@
                 <div class="hero-orbit hero-orbit-one"></div>
                 <div class="hero-orbit hero-orbit-two"></div>
                 <div class="hero-book-frame">
-                <img src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&w=700&q=85"
+                 <img src="{{ asset('images/CoverBook.jpg') }}?v={{ filemtime(public_path('images/CoverBook.jpg')) }}"
                      alt="Buku Unggulan" 
                      class="img-fluid rounded shadow" 
                      loading="lazy"
@@ -74,41 +74,6 @@
     </div>
 </section>
 
-<!-- Buku Populer Section -->
-<section class="book-section animated-section" id="popular-books" data-reveal>
-    <div class="container">
-        <!-- Section Header -->
-        <div class="section-header mb-5">
-            <div>
-                <h2 class="section-title">Buku Populer</h2>
-                <p class="text-muted">Pilihan buku yang paling diminati pembaca</p>
-            </div>
-            <a href="#" class="see-all">
-                Lihat Semua <i class="fas fa-arrow-right ms-2"></i>
-            </a>
-        </div>
-
-        <!-- Books Grid -->
-        <div class="row g-4">
-            @if($popularBooks->count() > 0)
-                @foreach($popularBooks as $book)
-                    <div class="col-lg-3 col-md-4 col-sm-6 reveal-item" style="--reveal-delay: {{ $loop->index * 80 }}ms;">
-                        @include('components.book-card', [
-                            'book' => $book,
-                            'badge' => ['class' => 'badge-popular', 'text' => 'POPULER'],
-                            'showRanking' => false
-                        ])
-                    </div>
-                @endforeach
-            @else
-                <div class="col-12 text-center py-5">
-                    <p class="text-muted">Belum ada buku populer tersedia.</p>
-                </div>
-            @endif
-        </div>
-    </div>
-</section>
-
 <!-- Buku Paling Laris Section -->
 <section class="book-section animated-section" id="bestseller-books" data-reveal>
     <div class="container">
@@ -144,21 +109,68 @@
     </div>
 </section>
 
-<!-- CTA Section -->
-<section class="homepage-cta py-5" data-reveal>
+<!-- Buku Populer Section -->
+<section class="book-section animated-section" id="popular-books" data-reveal>
     <div class="container">
-        <div class="row">
-            <div class="col-lg-8 mx-auto text-center">
-                <h3 class="mb-3">Jangan Lewatkan Update Terbaru!</h3>
-                <p class="text-muted mb-4">
-                    Dapatkan notifikasi langsung tentang buku-buku terbaru, penawaran khusus, dan acara penerbit Interlude.
-                </p>
-                <form class="d-flex gap-2 justify-content-center flex-wrap">
-                    <input type="email" class="form-control form-control-lg" placeholder="Masukkan email Anda" style="max-width: 300px;" required>
-                    <button type="submit" class="btn btn-primary btn-lg">
-                        <i class="fas fa-paper-plane me-2"></i>Subscribe
-                    </button>
-                </form>
+        <!-- Section Header -->
+        <div class="section-header mb-5">
+            <div>
+                <h2 class="section-title">Buku Populer</h2>
+                <p class="text-muted">Pilihan buku yang paling diminati pembaca</p>
+            </div>
+            <a href="#" class="see-all">
+                Lihat Semua <i class="fas fa-arrow-right ms-2"></i>
+            </a>
+        </div>
+
+        <!-- Books Grid -->
+        <div class="row g-4">
+            @if($popularBooks->count() > 0)
+                @foreach($popularBooks as $book)
+                    <div class="col-lg-3 col-md-4 col-sm-6 reveal-item" style="--reveal-delay: {{ $loop->index * 80 }}ms;">
+                        @include('components.book-card', [
+                            'book' => $book,
+                            'badge' => ['class' => 'badge-popular', 'text' => 'POPULER'],
+                            'showRanking' => false
+                        ])
+                    </div>
+                @endforeach
+            @else
+                <div class="col-12 text-center py-5">
+                    <p class="text-muted">Belum ada buku populer tersedia.</p>
+                </div>
+            @endif
+        </div>
+    </div>
+</section>
+
+<!-- Social Media Section -->
+<section class="social-section" data-reveal aria-labelledby="social-section-title">
+    <div class="container">
+        <div class="social-section-inner">
+            <div class="social-brand">
+                <img src="{{ asset('images/logo-teras-interlude.png') }}" alt="Logo Teras Interlude" loading="lazy">
+            </div>
+            <div class="social-links-panel">
+                <h2 id="social-section-title">Sosial Media</h2>
+                <div class="social-links-grid">
+                    <a href="https://www.youtube.com/@terasinterlude227" target="_blank" rel="noopener noreferrer" aria-label="Kunjungi YouTube Teras Interlude">
+                        <i class="fab fa-youtube" aria-hidden="true"></i>
+                        <span>Youtube</span>
+                    </a>
+                    <a href="https://www.instagram.com/interludepenerbit/" target="_blank" rel="noopener noreferrer" aria-label="Kunjungi Instagram Interlude">
+                        <i class="fab fa-instagram" aria-hidden="true"></i>
+                        <span>Instagram</span>
+                    </a>
+                    <a href="https://wa.me/6282281572158" target="_blank" rel="noopener noreferrer" aria-label="Hubungi Interlude melalui WhatsApp">
+                        <i class="fab fa-whatsapp" aria-hidden="true"></i>
+                        <span>WhatsApp</span>
+                    </a>
+                    <a href="#" aria-label="Kunjungi TikTok Interlude">
+                        <i class="fab fa-tiktok" aria-hidden="true"></i>
+                        <span>TikTok</span>
+                    </a>
+                </div>
             </div>
         </div>
     </div>
