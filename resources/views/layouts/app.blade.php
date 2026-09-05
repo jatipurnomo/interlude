@@ -22,22 +22,21 @@
     @yield('styles')
 </head>
 <body>
-    <!-- Navigation Component -->
-    @include('components.navbar')
+    @unless (request()->routeIs('login'))
+        <!-- Navigation Component -->
+        @include('components.navbar')
+    @endunless
     
     <!-- Main Content -->
     <main>
         @yield('content')
     </main>
     
-    <!-- Footer Component -->
-    @include('components.footer')
+    @unless (request()->routeIs('login'))
+        <!-- Footer Component -->
+        @include('components.footer')
+    @endunless
 
-    <!-- Login Modal Component -->
-    @guest
-        @include('components.login-modal')
-    @endguest
-    
     <!-- Bootstrap 5 JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     
