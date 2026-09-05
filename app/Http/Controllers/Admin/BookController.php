@@ -32,7 +32,7 @@ class BookController extends Controller
                         ->orWhere('isbn', 'like', "%{$search}%");
                 });
             })
-            ->latest()
+            ->orderBy('id', 'desc')
             ->paginate(10)
             ->withQueryString();
 
@@ -57,7 +57,7 @@ class BookController extends Controller
      */
     public function store(StoreBookRequest $request): RedirectResponse
     {
-        $bookData = $request->validated();
+        $bookData = $this->normalizeCollectionFlags($request->validated(), $request);
 
         if ($request->hasFile('cover_image')) {
             $bookData['cover_image'] = $request->file('cover_image')->store('books', 'public');
@@ -93,7 +93,7 @@ class BookController extends Controller
      */
     public function update(UpdateBookRequest $request, Book $book): RedirectResponse
     {
-        $bookData = $request->validated();
+        $bookData = $this->normalizeCollectionFlags($request->validated(), $request);
 
         if ($request->hasFile('cover_image')) {
             $oldCover = $book->cover_image;
@@ -117,6 +117,15 @@ class BookController extends Controller
         $book->delete();
 
         return redirect()->route('admin.books.index')->with('success', 'Buku berhasil dihapus.');
+    }
+
+    private function normalizeCollectionFlags(array $bookData, Request $request): array
+    {
+        foreach (['is_new', 'is_popular', 'is_bestseller'] as $flag) {
+            $bookData[$flag] = $request->boolean($flag);
+        }
+
+        return $bookData;
     }
 
     private function deleteStoredCover(?string $coverPath): void

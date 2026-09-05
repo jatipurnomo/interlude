@@ -2,7 +2,7 @@
 <div class="book-card card h-100 shadow-sm border-0 overflow-hidden">
     <!-- Book Cover Image with Badge -->
     <div class="book-cover position-relative overflow-hidden" style="height: 280px; background: #f5f1ed;">
-        <img src="{{ $book->cover_image_url ?: 'https://via.placeholder.com/200x300?text=Book' }}"
+        <img src="{{ $book->cover_image_url }}"
              alt="{{ $book->title }}" 
              class="card-img-top h-100 object-fit-cover" 
              loading="lazy"
@@ -68,9 +68,9 @@
             
             <!-- Action Buttons -->
             <div class="d-flex gap-2">
-                <button class="btn btn-primary btn-sm flex-grow-1">
+                <a href="https://wa.me/6282281572158?text={{ urlencode('Halo Kak, saya ingin membeli buku "' . $book->title . '" karya ' . $book->author . '.') }}" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm flex-grow-1">
                     <i class="fas fa-shopping-cart me-1"></i>Beli
-                </button>
+                </a>
                 <button class="btn btn-outline-danger btn-sm">
                     <i class="far fa-heart"></i>
                 </button>

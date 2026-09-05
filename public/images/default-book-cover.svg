@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="300" viewBox="0 0 200 300">
+  <rect width="200" height="300" fill="#f5f1ed"/>
+  <rect x="45" y="75" width="110" height="150" rx="4" fill="#ffffff" stroke="#e4dcd2" stroke-width="2"/>
+  <rect x="92" y="75" width="3" height="150" fill="#e4dcd2"/>
+  <circle cx="100" cy="118" r="26" fill="#ead6c4"/>
+  <path d="M100 92 l0 52 M84 108 l32 14 M116 108 l-32 14" stroke="#c9574b" stroke-width="6" stroke-linecap="round" fill="none"/>
+  <text x="100" y="182" text-anchor="middle" font-family="Georgia, serif" font-size="16" fill="#2c1810" font-weight="bold">Interlude</text>
+  <text x="100" y="202" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="10" fill="#827b72">Sampul belum tersedia</text>
+</svg>

@@ -49,7 +49,7 @@
                 @if($searchTerm !== '')
                     <p class="text-muted mb-0">Hasil pencarian untuk: <strong>{{ $searchTerm }}</strong></p>
                 @else
-                    <p class="text-muted">Temukan buku-buku terbaru dari penerbit Interlude</p>
+                    <p class="text-muted">Temukan buku-buku terbaru dari Penerbit Interlude</p>
                 @endif
             </div>
             <a href="#" class="see-all">
@@ -156,7 +156,6 @@
                 <img src="{{ asset('images/logo-teras-interlude.png') }}" alt="Logo Teras Interlude" loading="lazy">
             </div>
             <div class="social-links-panel">
-                <h2 id="social-section-title">Sosial Media</h2>
                 <div class="social-links-grid">
                     <a href="https://www.youtube.com/@terasinterlude227" target="_blank" rel="noopener noreferrer" aria-label="Kunjungi YouTube Teras Interlude">
                         <i class="fab fa-youtube" aria-hidden="true"></i>
@@ -170,7 +169,7 @@
                         <i class="fab fa-whatsapp" aria-hidden="true"></i>
                         <span>WhatsApp</span>
                     </a>
-                    <a href="#" aria-label="Kunjungi TikTok Interlude">
+                    <a href="https://www.tiktok.com/id-ID/" target="_blank" aria-label="Kunjungi TikTok Interlude">
                         <i class="fab fa-tiktok" aria-hidden="true"></i>
                         <span>TikTok</span>
                     </a>

@@ -37,7 +37,7 @@
                         <a class="nav-link" href="#galeri">Galeri</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#social">Tentang Kami</a>
+                        <a class="nav-link" href="{{ route('home') }}#social">Tentang Kami</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#contact">Kontak</a>

@@ -126,6 +126,48 @@ class BookControllerTest extends TestCase
         Storage::disk('public')->assertMissing($newCover);
     }
 
+    public function test_unchecking_homepage_collections_persists_on_update(): void
+    {
+        $admin = User::factory()->create(['role' => 'admin']);
+        $book = Book::factory()->create(['is_new' => true, 'is_popular' => true, 'is_bestseller' => true]);
+
+        $response = $this->actingAs($admin)->put(route('admin.books.update', $book), [
+            'title' => $book->title,
+            'author' => $book->author,
+            'price' => $book->price,
+            'category' => $book->category,
+        ]);
+
+        $response->assertRedirectToRoute('admin.books.show', $book);
+
+        $book->refresh();
+        $this->assertFalse($book->is_new);
+        $this->assertFalse($book->is_popular);
+        $this->assertFalse($book->is_bestseller);
+    }
+
+    public function test_checked_homepage_collections_persist_on_update(): void
+    {
+        $admin = User::factory()->create(['role' => 'admin']);
+        $book = Book::factory()->create();
+
+        $response = $this->actingAs($admin)->put(route('admin.books.update', $book), [
+            'title' => $book->title,
+            'author' => $book->author,
+            'price' => $book->price,
+            'category' => $book->category,
+            'is_new' => '1',
+            'is_popular' => '1',
+        ]);
+
+        $response->assertRedirectToRoute('admin.books.show', $book);
+
+        $book->refresh();
+        $this->assertTrue($book->is_new);
+        $this->assertTrue($book->is_popular);
+        $this->assertFalse($book->is_bestseller);
+    }
+
     public function test_admin_can_search_books(): void
     {
         $admin = User::factory()->create(['role' => 'admin']);

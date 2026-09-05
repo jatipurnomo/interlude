@@ -15,7 +15,7 @@ class HomeController extends Controller
     {
         $searchTerm = trim((string) $request->query('q', ''));
 
-        // Get newest books (10)
+        // Get newest books (8)
         $newBooks = Book::where('is_new', true)
             ->when($searchTerm !== '', function ($query) use ($searchTerm) {
                 $query->where(function ($query) use ($searchTerm) {
@@ -24,11 +24,11 @@ class HomeController extends Controller
                         ->orWhere('category', 'like', "%{$searchTerm}%");
                 });
             })
-            ->latest()
-            ->take(10)
+            ->orderBy('id', 'desc')
+            ->take(8)
             ->get();
 
-        // Get popular books (10)
+        // Get popular books (8)
         $popularBooks = Book::where('is_popular', true)
             ->when($searchTerm !== '', function ($query) use ($searchTerm) {
                 $query->where(function ($query) use ($searchTerm) {
@@ -37,11 +37,11 @@ class HomeController extends Controller
                         ->orWhere('category', 'like', "%{$searchTerm}%");
                 });
             })
-            ->orderBy('view_count', 'desc')
-            ->take(10)
+            ->orderBy('id', 'desc')
+            ->take(8)
             ->get();
 
-        // Get bestselling books (10) with ranking
+        // Get bestselling books (8) with ranking
         $bestsellerBooks = Book::where('is_bestseller', true)
             ->when($searchTerm !== '', function ($query) use ($searchTerm) {
                 $query->where(function ($query) use ($searchTerm) {
@@ -50,8 +50,8 @@ class HomeController extends Controller
                         ->orWhere('category', 'like', "%{$searchTerm}%");
                 });
             })
-            ->orderBy('sold_count', 'desc')
-            ->take(10)
+            ->orderBy('id', 'desc')
+            ->take(8)
             ->get();
 
         return view('home.index', [

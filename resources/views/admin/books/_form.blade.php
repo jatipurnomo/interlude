@@ -36,7 +36,7 @@
                     <input id="cover_image" name="cover_image" type="file" accept="image/jpeg,image/png,image/webp" class="form-control @error('cover_image') is-invalid @enderror">
                     <div class="form-text">Format JPG, PNG, atau WebP. Maksimal 2 MB.</div>
                     @error('cover_image')<div class="invalid-feedback">{{ $message }}</div>@enderror
-                    @if (!empty($book?->cover_image_url))
+                    @if (!empty($book?->cover_image))
                         <img src="{{ $book->cover_image_url }}" alt="Cover {{ $book->title }}" class="img-thumbnail mt-3" style="max-height: 180px;">
                     @endif
                 </div>

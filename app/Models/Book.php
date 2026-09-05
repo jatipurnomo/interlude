@@ -12,10 +12,10 @@ class Book extends Model
     /** @use HasFactory<BookFactory> */
     use HasFactory;
 
-    public function getCoverImageUrlAttribute(): ?string
+    public function getCoverImageUrlAttribute(): string
     {
         if (! $this->cover_image) {
-            return null;
+            return asset('images/default-book-cover.svg');
         }
 
         if (Str::startsWith($this->cover_image, ['http://', 'https://'])) {

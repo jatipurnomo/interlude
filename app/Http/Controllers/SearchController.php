@@ -24,8 +24,8 @@ class SearchController extends Controller
                         ->orWhere('category', 'like', "%{$searchTerm}%");
                 });
             })
-            ->latest('published_at')
-            ->paginate(12)
+            ->orderBy('id', 'desc')
+            ->paginate(10)
             ->withQueryString();
 
         return view('search.index', [

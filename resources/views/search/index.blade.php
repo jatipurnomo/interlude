@@ -18,7 +18,7 @@
                 @if($searchTerm !== '')
                     <p class="mb-0 text-muted">Menampilkan hasil untuk <span class="search-page-query">“{{ $searchTerm }}”</span></p>
                 @else
-                    <p class="mb-0 text-muted">Jelajahi koleksi buku Interlude.</p>
+                    <p class="mb-0 text-muted">Jelajahi koleksi Buku - Buku Interlude!</p>
                 @endif
             </div>
             <span class="text-muted small">{{ $books->total() }} buku ditemukan</span>
@@ -30,7 +30,7 @@
                     <div class="col-12">
                         <article class="search-result-card">
                             @php
-                                $coverImageUrl = $book->cover_image_url ?: 'https://via.placeholder.com/300x450?text=Book';
+                                $coverImageUrl = $book->cover_image_url;
                             @endphp
                             <button type="button" class="search-result-cover search-result-cover-button" data-bs-toggle="modal" data-bs-target="#bookImageModal" data-image="{{ $coverImageUrl }}" data-title="{{ $book->title }}" data-author="{{ $book->author }}" aria-label="Perbesar sampul {{ $book->title }}">
                                 <img src="{{ $coverImageUrl }}" alt="Sampul {{ $book->title }}" loading="lazy">
@@ -48,7 +48,12 @@
                                         <span class="badge badge-bestseller">BEST SELLER</span>
                                     @endif
                                 </div>
-                                <h2 class="search-result-title">{{ $book->title }}</h2>
+                                <div class="d-flex justify-content-between align-items-start gap-3 mb-1">
+                                    <h2 class="search-result-title mb-0">
+                                        <a href="{{ route('books.show', $book) }}" class="search-result-title-link">{{ $book->title }}</a>
+                                    </h2>
+                                    <span class="search-result-price text-nowrap">Rp {{ number_format($book->price, 0, ',', '.') }}</span>
+                                </div>
                                 <p class="search-result-author mb-0">
                                     <i class="fas fa-pen me-2" aria-hidden="true"></i>{{ $book->author }}
                                 </p>
@@ -63,7 +68,9 @@
                                     <span><i class="far fa-heart me-1" aria-hidden="true"></i>{{ number_format($book->wishlist_count) }} wishlist</span>
                                 </div>
                                 <div class="mt-3">
-                                    <span class="search-result-price">Rp {{ number_format($book->price, 0, ',', '.') }}</span>
+                                    <a href="{{ route('books.show', $book) }}" class="btn btn-primary btn-sm">
+                                        <i class="fas fa-eye me-2" aria-hidden="true"></i>Lihat Detail
+                                    </a>
                                 </div>
                             </div>
                         </article>

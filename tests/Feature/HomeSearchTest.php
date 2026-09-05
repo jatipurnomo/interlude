@@ -59,6 +59,42 @@ class HomeSearchTest extends TestCase
             ->assertSee('data-bs-toggle="modal"', false);
     }
 
+    public function test_search_page_displays_a_detail_link_per_book(): void
+    {
+        $book = Book::factory()->create(['title' => 'Buku Dengan Link Detail']);
+
+        $response = $this->get('/search?q=Link');
+
+        $response->assertOk()
+            ->assertSee(route('books.show', $book), false)
+            ->assertSee('Lihat Detail');
+    }
+
+    public function test_public_book_detail_page_renders_book_information(): void
+    {
+        $book = Book::factory()->create([
+            'title' => 'Buku Detail Publik',
+            'author' => 'Penulis Publik',
+            'category' => 'Novel',
+            'description' => 'Ini deskripsi buku publik.',
+            'isbn' => '978-602-1234-56-7',
+            'is_new' => true,
+            'is_popular' => true,
+            'is_bestseller' => true,
+        ]);
+
+        $response = $this->get(route('books.show', $book));
+
+        $response->assertOk()
+            ->assertSee('Buku Detail Publik')
+            ->assertSee('Penulis Publik')
+            ->assertSee('Novel')
+            ->assertSee('Ini deskripsi buku publik.')
+            ->assertSee('BARU')
+            ->assertSee('BEST SELLER')
+            ->assertSee('Deskripsi Buku');
+    }
+
     public function test_search_page_paginates_results_and_preserves_the_search_query(): void
     {
         foreach (range(1, 16) as $number) {
@@ -74,11 +110,14 @@ class HomeSearchTest extends TestCase
 
         $response->assertOk()
             ->assertSee('page=2')
-            ->assertSee('Pagination Book 1');
+            ->assertSee('Pagination Book 16')
+            ->assertDontSee('Pagination Book 6');
 
         $secondPage = $this->get('/search?q=Pagination&page=2');
 
         $secondPage->assertOk()
-            ->assertSee('Pagination Book 16');
+            ->assertSee('Pagination Book 6')
+            ->assertSee('Pagination Book 1')
+            ->assertDontSee('Pagination Book 16');
     }
 }

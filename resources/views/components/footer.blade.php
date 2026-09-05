@@ -14,8 +14,8 @@
             <div class="col-md-3 col-sm-6 mb-4">
                 <h6 class="fw-bold mb-3">Menu</h6>
                 <ul class="list-unstyled">
-                    <li><a href="#" class="text-muted text-decoration-none hover-link">Tentang Kami</a></li>
-                    <li><a href="#" class="text-muted text-decoration-none hover-link">Katalog</a></li>
+                    <li><a href="#social" class="text-muted text-decoration-none hover-link">Tentang Kami</a></li>
+                    <li><a href="{{ route('search') }}" class="text-muted text-decoration-none hover-link">Katalog</a></li>
                     <li><a href="{{ route('blog') }}" class="text-muted text-decoration-none hover-link">Blog</a></li>
                     <li><a href="#" class="text-muted text-decoration-none hover-link">FAQ</a></li>
                 </ul>
@@ -25,10 +25,10 @@
             <div class="col-md-3 col-sm-6 mb-4">
                 <h6 class="fw-bold mb-3">Kebijakan</h6>
                 <ul class="list-unstyled">
-                    <li><a href="#" class="text-muted text-decoration-none hover-link">Kebijakan Privasi</a></li>
-                    <li><a href="#" class="text-muted text-decoration-none hover-link">Syarat & Ketentuan</a></li>
-                    <li><a href="#" class="text-muted text-decoration-none hover-link">Kebijakan Pengembalian</a></li>
-                    <li><a href="#" class="text-muted text-decoration-none hover-link">Pengiriman & Pajak</a></li>
+                    <li><a href="" class="text-muted text-decoration-none hover-link">Kebijakan Privasi</a></li>
+                    <li><a href="" class="text-muted text-decoration-none hover-link">Syarat & Ketentuan</a></li>
+                    <li><a href="" class="text-muted text-decoration-none hover-link">Kebijakan Pengembalian</a></li>
+                    <li><a href="" class="text-muted text-decoration-none hover-link">Pengiriman & Pajak</a></li>
                 </ul>
             </div>
             
@@ -59,7 +59,7 @@
         <div class="row">
             <div class="col-md-8 mb-3">
                 <p class="text-muted small mb-0">
-                    &copy; {{ date('Y') }} Interlude Penerbit Buku. Semua hak dilindungi.
+                    &copy; {{ date('Y') }} Copyright Penerbit Buku Interlude.
                 </p>
             </div>
             <div class="col-md-4 text-md-end">

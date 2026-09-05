@@ -21,7 +21,7 @@
             <div class="table-responsive"><table class="table align-middle mb-0">
                 <thead><tr><th>Book</th><th>Category</th><th>Price</th><th>Collections</th><th>Stats</th><th class="text-end">Action</th></tr></thead>
                 <tbody>@foreach ($books as $book)<tr>
-                    <td><div class="d-flex align-items-center gap-3"><img src="{{ $book->cover_image_url ?: 'https://via.placeholder.com/48x68?text=Book' }}" alt="{{ $book->title }}" width="48" height="68" class="rounded object-fit-cover"><div><strong>{{ $book->title }}</strong><small class="d-block text-muted">{{ $book->author }}</small></div></div></td>
+                    <td><div class="d-flex align-items-center gap-3"><img src="{{ $book->cover_image_url }}" alt="{{ $book->title }}" width="48" height="68" class="rounded object-fit-cover"><div><strong>{{ $book->title }}</strong><small class="d-block text-muted">{{ $book->author }}</small></div></div></td>
                     <td>{{ $book->category }}</td><td>Rp {{ number_format((float) $book->price, 0, ',', '.') }}</td>
                     <td><div class="d-flex flex-wrap gap-1">@if($book->is_new)<span class="badge text-bg-success">Baru</span>@endif @if($book->is_popular)<span class="badge text-bg-info">Populer</span>@endif @if($book->is_bestseller)<span class="badge text-bg-warning">Bestseller</span>@endif</div></td>
                     <td><small class="d-block">{{ number_format($book->sold_count) }} sold</small><small class="text-muted">{{ number_format($book->wishlist_count) }} wishlist</small></td>
