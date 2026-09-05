@@ -11,41 +11,36 @@
             <div class="card shadow-lg border-0" style="border-radius: 12px;">
                 <!-- Card Header -->
                 <div class="card-header border-0 bg-transparent" style="padding: 40px 40px 0 40px;">
-                    <h2 class="card-title fw-bold text-center mb-2" style="font-family: 'Poppins', sans-serif; color: #2C1810;">
-                        Masuk ke Akun Anda
-                    </h2>
-                    <p class="text-muted text-center small mb-0">
-                        Masukkan email dan password Anda untuk melanjutkan
-                    </p>
+                    <h3 class="card-title fw-bold text-center mb-2" style="font-family: 'Poppins', sans-serif; color: #2C1810;">
+                        Login Admin Interlude
+                    </h3>
                 </div>
 
                 <!-- Card Body -->
                 <div class="card-body" style="padding: 30px 40px;">
-                    <!-- Alert Messages -->
-                    @if ($errors->any())
-                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                            <i class="fas fa-exclamation-circle me-2"></i>
-                            <strong>Gagal Login!</strong>
-                            <ul class="mb-0 mt-2">
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>
-                    @endif
 
-                    @if (session('error'))
-                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                            <i class="fas fa-exclamation-circle me-2"></i>
-                            {{ session('error') }}
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>
-                    @endif
 
                     <!-- Login Form -->
                     <form id="loginForm" method="POST" action="{{ route('login.post') }}" novalidate>
                         @csrf
+
+                        <!-- Password Validation Alert -->
+                        @php
+                            $submittedPassword = session()->getOldInput()['password'] ?? null;
+                            $hasPasswordError = $errors->has('password') && $submittedPassword !== null && $submittedPassword !== '';
+                            $showPasswordAlert = !empty(session('error')) || $hasPasswordError;
+                        @endphp
+                        <div class="alert alert-danger alert-dismissible fade show {{ $showPasswordAlert ? '' : 'd-none' }}" id="passwordAlert" role="alert">
+                            <i class="fas fa-exclamation-circle me-2"></i>
+                            <span id="passwordAlertText">
+                                @if (session('error'))
+                                    {{ session('error') }}
+                                @else
+                                    {{ $errors->first('password', 'Password minimal 8 karakter.') }}
+                                @endif
+                            </span>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
 
                         <!-- Email Field -->
                         <div class="mb-3">
@@ -57,7 +52,7 @@
                                 <input type="email" class="form-control border-start-0 @error('email') is-invalid @enderror" 
                                        id="email" name="email" placeholder="contoh@email.com" 
                                        value="{{ old('email') }}" required>
-                                <div class="invalid-feedback d-block" id="emailError">
+                                <div class="invalid-feedback" id="emailError">
                                     @error('email')
                                         {{ $message }}
                                     @else
@@ -71,9 +66,6 @@
                         <div class="mb-3">
                             <div class="d-flex justify-content-between align-items-center mb-2">
                                 <label for="password" class="form-label fw-bold mb-0">Password</label>
-                                <a href="#" class="text-decoration-none small" style="color: #8B3A3A;">
-                                    Lupa Password?
-                                </a>
                             </div>
                             <div class="input-group has-validation">
                                 <span class="input-group-text bg-light border-end-0" style="color: #8B3A3A;">
@@ -84,7 +76,7 @@
                                 <button class="btn btn-light border-start-0" type="button" id="togglePassword">
                                     <i class="fas fa-eye text-muted"></i>
                                 </button>
-                                <div class="invalid-feedback d-block w-100" id="passwordError">
+                                <div class="invalid-feedback w-100" id="passwordError">
                                     @error('password')
                                         {{ $message }}
                                     @else
@@ -109,16 +101,6 @@
                             <span id="btnSpinner" class="spinner-border spinner-border-sm ms-2 d-none" role="status" aria-hidden="true"></span>
                         </button>
                     </form>
-                </div>
-
-                <!-- Card Footer -->
-                <div class="card-footer border-0 bg-transparent" style="padding: 0 40px 40px 40px;">
-                    <p class="text-muted small text-center mb-0">
-                        Belum punya akun? 
-                        <a href="#" class="text-decoration-none fw-bold" style="color: #8B3A3A;">
-                            Daftar di sini
-                        </a>
-                    </p>
                 </div>
             </div>
 
@@ -161,7 +143,6 @@
         // Form validation and submission
         const loginForm = document.getElementById('loginForm');
         const emailInput = document.getElementById('email');
-        const passwordInput = document.getElementById('password');
         const loginBtn = document.getElementById('loginBtn');
         const btnText = document.getElementById('btnText');
         const btnSpinner = document.getElementById('btnSpinner');
@@ -221,13 +202,22 @@
         }
 
         function validatePassword() {
+            const passwordAlert = document.getElementById('passwordAlert');
+            const passwordAlertText = document.getElementById('passwordAlertText');
             const isValid = passwordInput.value.length >= 8;
 
             if (!isValid && passwordInput.value.trim() !== '') {
                 passwordInput.classList.add('is-invalid');
+                if (passwordAlert) {
+                    passwordAlertText.textContent = 'Password minimal 8 karakter.';
+                    passwordAlert.classList.remove('d-none');
+                }
                 return false;
             } else {
                 passwordInput.classList.remove('is-invalid');
+                if (passwordAlert) {
+                    passwordAlert.classList.add('d-none');
+                }
                 return true;
             }
         }

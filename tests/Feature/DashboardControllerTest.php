@@ -17,6 +17,15 @@ class DashboardControllerTest extends TestCase
         $response->assertRedirectToRoute('login');
     }
 
+    public function test_login_page_does_not_display_navigation_or_footer(): void
+    {
+        $response = $this->get('/login');
+
+        $response->assertOk()
+            ->assertDontSee('navbarOffcanvas')
+            ->assertDontSee('Terus Lumaku Tansah Lelaku');
+    }
+
     public function test_authenticated_user_can_view_dashboard_data(): void
     {
         $user = User::factory()->create(['name' => 'John Doe', 'role' => 'admin']);

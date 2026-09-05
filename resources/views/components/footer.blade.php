@@ -16,7 +16,7 @@
                 <ul class="list-unstyled">
                     <li><a href="#" class="text-muted text-decoration-none hover-link">Tentang Kami</a></li>
                     <li><a href="#" class="text-muted text-decoration-none hover-link">Katalog</a></li>
-                    <li><a href="#" class="text-muted text-decoration-none hover-link">Blog</a></li>
+                    <li><a href="{{ route('blog') }}" class="text-muted text-decoration-none hover-link">Blog</a></li>
                     <li><a href="#" class="text-muted text-decoration-none hover-link">FAQ</a></li>
                 </ul>
             </div>
