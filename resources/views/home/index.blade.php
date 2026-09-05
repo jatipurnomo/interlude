@@ -5,42 +5,52 @@
 @section('content')
 
 <!-- Hero Section -->
-<section class="hero">
+<section class="hero homepage-hero" data-reveal>
     <div class="container">
         <div class="row align-items-center">
-            <div class="col-lg-8 hero-content">
+            <div class="col-lg-7 hero-content">
+                <p class="hero-kicker">Interlude Publishing House</p>
                 <h1>Setiap Buku, Sebuah Jeda untuk Berpikir</h1>
                 <p class="lead">
                     Jelajahi dunia penuh inspirasi, pengetahuan, dan cerita yang akan mengubah cara Anda memandang dunia.
                 </p>
                 <div class="d-flex gap-3">
-                    <a href="#newest-books" class="btn btn-primary btn-lg">
-                        <i class="fas fa-search me-2"></i>Jelajahi Koleksi
+                    <a href="#newest-books" class="btn btn-primary btn-lg hero-cta">
+                        <i class="fas fa-book me-2"></i>Koleksi Terbaru
                     </a>
-                    <a href="#" class="btn btn-outline-light btn-lg">
-                        <i class="fas fa-info-circle me-2"></i>Pelajari Lebih Lanjut
+                    <a href="{{ route('search') }}" class="btn btn-outline-light btn-lg">
+                        <i class="fas fa-search me-2"></i>Jelajahi Buku
                     </a>
                 </div>
             </div>
-            <div class="col-lg-4 text-center">
-                <img src="https://via.placeholder.com/300x400?text=Featured+Book" 
+            <div class="col-lg-5 text-center hero-art">
+                <div class="hero-orbit hero-orbit-one"></div>
+                <div class="hero-orbit hero-orbit-two"></div>
+                <div class="hero-book-frame">
+                 <img src="{{ asset('images/CoverBook.jpg') }}?v={{ filemtime(public_path('images/CoverBook.jpg')) }}"
                      alt="Buku Unggulan" 
                      class="img-fluid rounded shadow" 
                      loading="lazy"
                      style="max-width: 100%;">
+                 </div>
+                 <span class="hero-caption">A new chapter awaits</span>
             </div>
         </div>
     </div>
 </section>
 
 <!-- Buku Terbaru Section -->
-<section class="book-section" id="newest-books">
+<section class="book-section animated-section" id="newest-books" data-reveal>
     <div class="container">
         <!-- Section Header -->
         <div class="section-header mb-5">
             <div>
                 <h2 class="section-title">Koleksi Terbaru</h2>
-                <p class="text-muted">Temukan buku-buku terbaru dari penerbit Interlude</p>
+                @if($searchTerm !== '')
+                    <p class="text-muted mb-0">Hasil pencarian untuk: <strong>{{ $searchTerm }}</strong></p>
+                @else
+                    <p class="text-muted">Temukan buku-buku terbaru dari penerbit Interlude</p>
+                @endif
             </div>
             <a href="#" class="see-all">
                 Lihat Semua <i class="fas fa-arrow-right ms-2"></i>
@@ -51,7 +61,7 @@
         <div class="row g-4">
             @if($newBooks->count() > 0)
                 @foreach($newBooks as $book)
-                    <div class="col-lg-3 col-md-4 col-sm-6">
+                    <div class="col-lg-3 col-md-4 col-sm-6 reveal-item" style="--reveal-delay: {{ $loop->index * 80 }}ms;">
                         @include('components.book-card', [
                             'book' => $book,
                             'badge' => ['class' => 'badge-new', 'text' => 'BARU'],
@@ -68,43 +78,8 @@
     </div>
 </section>
 
-<!-- Buku Populer Section -->
-<section class="book-section" id="popular-books">
-    <div class="container">
-        <!-- Section Header -->
-        <div class="section-header mb-5">
-            <div>
-                <h2 class="section-title">Buku Populer</h2>
-                <p class="text-muted">Pilihan buku yang paling diminati pembaca</p>
-            </div>
-            <a href="#" class="see-all">
-                Lihat Semua <i class="fas fa-arrow-right ms-2"></i>
-            </a>
-        </div>
-
-        <!-- Books Grid -->
-        <div class="row g-4">
-            @if($popularBooks->count() > 0)
-                @foreach($popularBooks as $book)
-                    <div class="col-lg-3 col-md-4 col-sm-6">
-                        @include('components.book-card', [
-                            'book' => $book,
-                            'badge' => ['class' => 'badge-popular', 'text' => 'POPULER'],
-                            'showRanking' => false
-                        ])
-                    </div>
-                @endforeach
-            @else
-                <div class="col-12 text-center py-5">
-                    <p class="text-muted">Belum ada buku populer tersedia.</p>
-                </div>
-            @endif
-        </div>
-    </div>
-</section>
-
 <!-- Buku Paling Laris Section -->
-<section class="book-section" id="bestseller-books">
+<section class="book-section animated-section" id="bestseller-books" data-reveal>
     <div class="container">
         <!-- Section Header -->
         <div class="section-header mb-5">
@@ -121,7 +96,7 @@
         <div class="row g-4">
             @if($bestsellerBooks->count() > 0)
                 @foreach($bestsellerBooks as $book)
-                    <div class="col-lg-3 col-md-4 col-sm-6">
+                    <div class="col-lg-3 col-md-4 col-sm-6 reveal-item" style="--reveal-delay: {{ $loop->index * 80 }}ms;">
                         @include('components.book-card', [
                             'book' => $book,
                             'badge' => ['class' => 'badge-bestseller', 'text' => 'BEST SELLER'],
@@ -138,21 +113,68 @@
     </div>
 </section>
 
-<!-- CTA Section -->
-<section class="py-5" style="background: linear-gradient(135deg, #f5f1ed 0%, #e8dfd5 100%);">
+<!-- Buku Populer Section -->
+<section class="book-section animated-section" id="popular-books" data-reveal>
     <div class="container">
-        <div class="row">
-            <div class="col-lg-8 mx-auto text-center">
-                <h3 class="mb-3">Jangan Lewatkan Update Terbaru!</h3>
-                <p class="text-muted mb-4">
-                    Dapatkan notifikasi langsung tentang buku-buku terbaru, penawaran khusus, dan acara penerbit Interlude.
-                </p>
-                <form class="d-flex gap-2 justify-content-center flex-wrap">
-                    <input type="email" class="form-control form-control-lg" placeholder="Masukkan email Anda" style="max-width: 300px;" required>
-                    <button type="submit" class="btn btn-primary btn-lg">
-                        <i class="fas fa-paper-plane me-2"></i>Subscribe
-                    </button>
-                </form>
+        <!-- Section Header -->
+        <div class="section-header mb-5">
+            <div>
+                <h2 class="section-title">Buku Populer</h2>
+                <p class="text-muted">Pilihan buku yang paling diminati pembaca</p>
+            </div>
+            <a href="#" class="see-all">
+                Lihat Semua <i class="fas fa-arrow-right ms-2"></i>
+            </a>
+        </div>
+
+        <!-- Books Grid -->
+        <div class="row g-4">
+            @if($popularBooks->count() > 0)
+                @foreach($popularBooks as $book)
+                    <div class="col-lg-3 col-md-4 col-sm-6 reveal-item" style="--reveal-delay: {{ $loop->index * 80 }}ms;">
+                        @include('components.book-card', [
+                            'book' => $book,
+                            'badge' => ['class' => 'badge-popular', 'text' => 'POPULER'],
+                            'showRanking' => false
+                        ])
+                    </div>
+                @endforeach
+            @else
+                <div class="col-12 text-center py-5">
+                    <p class="text-muted">Belum ada buku populer tersedia.</p>
+                </div>
+            @endif
+        </div>
+    </div>
+</section>
+
+<!-- Social Media Section -->
+<section class="social-section animated-section" id="social" data-reveal aria-labelledby="social-section-title">
+    <div class="container">
+        <div class="social-section-inner">
+            <div class="social-brand">
+                <img src="{{ asset('images/logo-teras-interlude.png') }}" alt="Logo Teras Interlude" loading="lazy">
+            </div>
+            <div class="social-links-panel">
+                <h2 id="social-section-title">Sosial Media</h2>
+                <div class="social-links-grid">
+                    <a href="https://www.youtube.com/@terasinterlude227" target="_blank" rel="noopener noreferrer" aria-label="Kunjungi YouTube Teras Interlude">
+                        <i class="fab fa-youtube" aria-hidden="true"></i>
+                        <span>Youtube</span>
+                    </a>
+                    <a href="https://www.instagram.com/interludepenerbit/" target="_blank" rel="noopener noreferrer" aria-label="Kunjungi Instagram Interlude">
+                        <i class="fab fa-instagram" aria-hidden="true"></i>
+                        <span>Instagram</span>
+                    </a>
+                    <a href="https://wa.me/6282281572158" target="_blank" rel="noopener noreferrer" aria-label="Hubungi Interlude melalui WhatsApp">
+                        <i class="fab fa-whatsapp" aria-hidden="true"></i>
+                        <span>WhatsApp</span>
+                    </a>
+                    <a href="#" aria-label="Kunjungi TikTok Interlude">
+                        <i class="fab fa-tiktok" aria-hidden="true"></i>
+                        <span>TikTok</span>
+                    </a>
+                </div>
             </div>
         </div>
     </div>
@@ -162,11 +184,16 @@
 
 @section('scripts')
 <script>
-    // Lazy loading for images
-    document.addEventListener('DOMContentLoaded', function() {
-        // Modern browsers support loading="lazy" natively
-        // For older browsers, you can add a library like Lazysizes
-    });
+    const revealItems = document.querySelectorAll('[data-reveal], .reveal-item');
+    const revealObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+        });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px' });
+
+    revealItems.forEach((item) => revealObserver.observe(item));
 
     // Smooth scroll for links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -181,14 +208,5 @@
         });
     });
 
-    // Book card hover effect
-    document.querySelectorAll('.book-card').forEach(card => {
-        card.addEventListener('mouseenter', function() {
-            this.style.transform = 'translateY(-5px)';
-        });
-        card.addEventListener('mouseleave', function() {
-            this.style.transform = 'translateY(0)';
-        });
-    });
 </script>
 @endsection
