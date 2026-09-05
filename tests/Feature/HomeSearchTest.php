@@ -34,7 +34,8 @@ class HomeSearchTest extends TestCase
         $response->assertOk()
             ->assertSee('Buku Pencarian Interlude')
             ->assertDontSee('Buku Lainnya')
-            ->assertSee('Hasil pencarian untuk:');
+            ->assertSee('Hasil pencarian untuk:')
+            ->assertDontSee('loginModal');
     }
 
     public function test_search_page_displays_book_details_for_matching_results(): void
