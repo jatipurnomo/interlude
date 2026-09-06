@@ -11,14 +11,26 @@
                 <h1 id="search-page-title" class="search-page-title">
                     @if($searchTerm !== '')
                         Hasil Pencarian
+                    @elseif($collection === 'bestseller')
+                        Buku Bestseller
+                    @elseif($collection === 'populer')
+                        Buku Populer
+                    @elseif($collection === 'most-viewed')
+                        Buku Paling Banyak Dilihat
                     @else
                         Semua Buku
                     @endif
                 </h1>
                 @if($searchTerm !== '')
-                    <p class="mb-0 text-muted">Menampilkan hasil untuk <span class="search-page-query">“{{ $searchTerm }}”</span></p>
+                    <p class="mb-0 text-muted">Menampilkan hasil untuk <span class="search-page-query">"{{ $searchTerm }}"</span></p>
+                @elseif($collection === 'bestseller')
+                    <p class="mb-0 text-muted">Menampilkan semua buku berlabel Bestseller</p>
+                @elseif($collection === 'populer')
+                    <p class="mb-0 text-muted">Menampilkan semua buku berlabel Populer</p>
+                @elseif($collection === 'most-viewed')
+                    <p class="mb-0 text-muted">Menampilkan buku paling banyak dilihat</p>
                 @else
-                    <p class="mb-0 text-muted">Jelajahi koleksi buku Interlude.</p>
+                    <p class="mb-0 text-muted">Jelajahi koleksi Buku - Buku Interlude!</p>
                 @endif
             </div>
             <span class="text-muted small">{{ $books->total() }} buku ditemukan</span>
@@ -30,7 +42,7 @@
                     <div class="col-12">
                         <article class="search-result-card">
                             @php
-                                $coverImageUrl = $book->cover_image_url ?: 'https://via.placeholder.com/300x450?text=Book';
+                                $coverImageUrl = $book->cover_image_url;
                             @endphp
                             <button type="button" class="search-result-cover search-result-cover-button" data-bs-toggle="modal" data-bs-target="#bookImageModal" data-image="{{ $coverImageUrl }}" data-title="{{ $book->title }}" data-author="{{ $book->author }}" aria-label="Perbesar sampul {{ $book->title }}">
                                 <img src="{{ $coverImageUrl }}" alt="Sampul {{ $book->title }}" loading="lazy">
@@ -38,9 +50,6 @@
                             </button>
                             <div class="search-result-content">
                                 <div class="d-flex flex-wrap gap-2 mb-2">
-                                    @if($book->is_new)
-                                        <span class="badge badge-new">BARU</span>
-                                    @endif
                                     @if($book->is_popular)
                                         <span class="badge badge-popular">POPULER</span>
                                     @endif
@@ -48,22 +57,32 @@
                                         <span class="badge badge-bestseller">BEST SELLER</span>
                                     @endif
                                 </div>
-                                <h2 class="search-result-title">{{ $book->title }}</h2>
+                                <div class="d-flex justify-content-between align-items-start gap-3 mb-1">
+                                    <h2 class="search-result-title mb-0">
+                                        <a href="{{ route('books.show', $book) }}" class="search-result-title-link">{{ $book->title }}</a>
+                                    </h2>
+                                    <span class="search-result-price text-nowrap">Rp {{ number_format($book->price, 0, ',', '.') }}</span>
+                                </div>
                                 <p class="search-result-author mb-0">
                                     <i class="fas fa-pen me-2" aria-hidden="true"></i>{{ $book->author }}
                                 </p>
                                 <p class="mb-0 mt-2 text-muted">
                                     <i class="fas fa-layer-group me-2" aria-hidden="true"></i>{{ $book->category }}
                                 </p>
-                                <p class="search-result-description">{{ $book->description ?: 'Deskripsi buku belum tersedia.' }}</p>
+                                <p class="search-result-description">{{ Str::limit($book->description, 250) ?: 'Deskripsi buku belum tersedia.' }}</p>
                                 <div class="search-result-meta">
                                     <span><strong>ISBN:</strong> {{ $book->isbn ?: 'Belum tersedia' }}</span>
                                     <span><strong>Terbit:</strong> {{ $book->published_at?->format('d M Y') ?: 'Belum tersedia' }}</span>
-                                    <span><i class="fas fa-shopping-bag me-1" aria-hidden="true"></i>{{ number_format($book->sold_count) }} terjual</span>
-                                    <span><i class="far fa-heart me-1" aria-hidden="true"></i>{{ number_format($book->wishlist_count) }} wishlist</span>
+                                    <div class="d-flex flex-wrap gap-3 mt-1">
+                                        <span><i class="fas fa-shopping-bag me-1" aria-hidden="true"></i>{{ number_format($book->sold_count) }} terjual</span>
+                                        <span><i class="far fa-heart me-1" aria-hidden="true"></i>{{ number_format($book->wishlist_count) }} suka</span>
+                                        <span><i class="far fa-eye me-1" aria-hidden="true"></i>{{ number_format($book->view_count) }} dilihat</span>
+                                    </div>
                                 </div>
                                 <div class="mt-3">
-                                    <span class="search-result-price">Rp {{ number_format($book->price, 0, ',', '.') }}</span>
+                                    <a href="{{ route('books.show', $book) }}" class="btn btn-primary btn-sm">
+                                        <i class="fas fa-eye me-2" aria-hidden="true"></i>Lihat Detail
+                                    </a>
                                 </div>
                             </div>
                         </article>

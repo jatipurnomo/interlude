@@ -21,6 +21,14 @@
             font-family: 'Poppins', sans-serif;
         }
     </style>
+    <style>
+        .alert-fade {
+            transition: opacity 0.6s ease;
+        }
+        .alert-fade.fade-out {
+            opacity: 0;
+        }
+    </style>
     @yield('styles')
 </head>
 <body class="dashboard-body">
@@ -33,6 +41,13 @@
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     @yield('scripts')
+    <script>
+        document.querySelectorAll('.alert-fade').forEach(function(el) {
+            setTimeout(function() { el.classList.add('fade-out'); }, 3000);
+            setTimeout(function() { el.remove(); }, 3700);
+        });
+    </script>
 </body>
 </html>

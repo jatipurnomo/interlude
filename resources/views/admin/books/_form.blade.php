@@ -22,7 +22,7 @@
                     </div>
                     <div class="col-md-6">
                         <label for="price" class="form-label">Harga (Rp)</label>
-                        <input id="price" name="price" type="number" min="0" step="0.01" value="{{ old('price', $book->price ?? '') }}" class="form-control @error('price') is-invalid @enderror" required>
+                        <input id="price" name="price" type="text" inputmode="numeric" value="{{ old('price', isset($book) && $book->price ? number_format((int) $book->price, 0, ',', '.') : '') }}" class="form-control @error('price') is-invalid @enderror" required>
                         @error('price')<div class="invalid-feedback">{{ $message }}</div>@enderror
                     </div>
                     <div class="col-md-6">
@@ -36,7 +36,7 @@
                     <input id="cover_image" name="cover_image" type="file" accept="image/jpeg,image/png,image/webp" class="form-control @error('cover_image') is-invalid @enderror">
                     <div class="form-text">Format JPG, PNG, atau WebP. Maksimal 2 MB.</div>
                     @error('cover_image')<div class="invalid-feedback">{{ $message }}</div>@enderror
-                    @if (!empty($book?->cover_image_url))
+                    @if (!empty($book?->cover_image))
                         <img src="{{ $book->cover_image_url }}" alt="Cover {{ $book->title }}" class="img-thumbnail mt-3" style="max-height: 180px;">
                     @endif
                 </div>
@@ -60,7 +60,7 @@
         <div class="card border-0 shadow-sm">
             <div class="card-body p-4">
                 <h2 class="h5 mb-3">Homepage collections</h2>
-                @foreach(['is_new' => 'Buku Terbaru', 'is_popular' => 'Buku Populer', 'is_bestseller' => 'Bestseller'] as $field => $label)
+                @foreach(['is_popular' => 'Buku Populer', 'is_bestseller' => 'Bestseller'] as $field => $label)
                     <div class="form-check mb-3">
                         <input id="{{ $field }}" name="{{ $field }}" value="1" type="checkbox" class="form-check-input" @checked(old($field, $book->$field ?? false))>
                         <label for="{{ $field }}" class="form-check-label">{{ $label }}</label>
@@ -75,3 +75,28 @@
     <a href="{{ route('admin.books.index') }}" class="btn btn-light">Batal</a>
     <button type="submit" class="btn btn-primary"><i class="bi bi-check2 me-1"></i>{{ isset($book) ? 'Simpan Perubahan' : 'Simpan Buku' }}</button>
 </div>
+
+@section('scripts')
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const priceInput = document.getElementById('price');
+
+        function formatNumber(value) {
+            const digits = value.replace(/\D/g, '');
+            return digits.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+        }
+
+        priceInput.addEventListener('input', function () {
+            const cursorPos = this.selectionStart;
+            const oldLen = this.value.length;
+            this.value = formatNumber(this.value);
+            const newLen = this.value.length;
+            this.setSelectionRange(cursorPos + (newLen - oldLen), cursorPos + (newLen - oldLen));
+        });
+
+        priceInput.closest('form').addEventListener('submit', function () {
+            priceInput.value = priceInput.value.replace(/\D/g, '');
+        });
+    });
+</script>
+@endsection

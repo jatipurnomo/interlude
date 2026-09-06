@@ -15,8 +15,8 @@ class HomeController extends Controller
     {
         $searchTerm = trim((string) $request->query('q', ''));
 
-        // Get newest books (10)
-        $newBooks = Book::where('is_new', true)
+        // Get newest books (8)
+        $newBooks = Book::orderBy('id', 'desc')
             ->when($searchTerm !== '', function ($query) use ($searchTerm) {
                 $query->where(function ($query) use ($searchTerm) {
                     $query->where('title', 'like', "%{$searchTerm}%")
@@ -24,11 +24,10 @@ class HomeController extends Controller
                         ->orWhere('category', 'like', "%{$searchTerm}%");
                 });
             })
-            ->latest()
-            ->take(10)
+            ->take(8)
             ->get();
 
-        // Get popular books (10)
+        // Get popular books (8)
         $popularBooks = Book::where('is_popular', true)
             ->when($searchTerm !== '', function ($query) use ($searchTerm) {
                 $query->where(function ($query) use ($searchTerm) {
@@ -37,11 +36,11 @@ class HomeController extends Controller
                         ->orWhere('category', 'like', "%{$searchTerm}%");
                 });
             })
-            ->orderBy('view_count', 'desc')
-            ->take(10)
+            ->orderBy('wishlist_count', 'desc')
+            ->take(8)
             ->get();
 
-        // Get bestselling books (10) with ranking
+        // Get bestselling books (8) with ranking
         $bestsellerBooks = Book::where('is_bestseller', true)
             ->when($searchTerm !== '', function ($query) use ($searchTerm) {
                 $query->where(function ($query) use ($searchTerm) {
@@ -51,13 +50,26 @@ class HomeController extends Controller
                 });
             })
             ->orderBy('sold_count', 'desc')
-            ->take(10)
+            ->take(8)
+            ->get();
+
+        // Get most viewed books (8)
+        $mostViewedBooks = Book::orderBy('view_count', 'desc')
+            ->when($searchTerm !== '', function ($query) use ($searchTerm) {
+                $query->where(function ($query) use ($searchTerm) {
+                    $query->where('title', 'like', "%{$searchTerm}%")
+                        ->orWhere('author', 'like', "%{$searchTerm}%")
+                        ->orWhere('category', 'like', "%{$searchTerm}%");
+                });
+            })
+            ->take(8)
             ->get();
 
         return view('home.index', [
             'newBooks' => $newBooks,
             'popularBooks' => $popularBooks,
             'bestsellerBooks' => $bestsellerBooks,
+            'mostViewedBooks' => $mostViewedBooks,
             'searchTerm' => $searchTerm,
         ]);
     }

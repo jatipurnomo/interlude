@@ -22,6 +22,8 @@ class BookController extends Controller
     {
         Gate::authorize('viewAny', Book::class);
 
+        $categories = Book::distinct()->pluck('category')->filter()->sort()->values();
+
         $books = Book::query()
             ->when($request->string('search')->trim()->isNotEmpty(), function ($query) use ($request): void {
                 $search = $request->string('search')->trim()->toString();
@@ -32,13 +34,27 @@ class BookController extends Controller
                         ->orWhere('isbn', 'like', "%{$search}%");
                 });
             })
-            ->latest()
+            ->when($request->string('category')->trim()->isNotEmpty(), function ($query) use ($request): void {
+                $query->where('category', $request->string('category')->trim()->toString());
+            })
+            ->when($request->string('collection')->trim()->isNotEmpty(), function ($query) use ($request): void {
+                $collection = $request->string('collection')->trim()->toString();
+                if ($collection === 'popular') {
+                    $query->where('is_popular', true);
+                } elseif ($collection === 'bestseller') {
+                    $query->where('is_bestseller', true);
+                }
+            })
+            ->orderBy('id', 'desc')
             ->paginate(10)
             ->withQueryString();
 
         return view('admin.books.index', [
             'books' => $books,
             'search' => $request->string('search')->trim()->toString(),
+            'categories' => $categories,
+            'selectedCategory' => $request->string('category')->trim()->toString(),
+            'selectedCollection' => $request->string('collection')->trim()->toString(),
         ]);
     }
 
@@ -57,7 +73,7 @@ class BookController extends Controller
      */
     public function store(StoreBookRequest $request): RedirectResponse
     {
-        $bookData = $request->validated();
+        $bookData = $this->normalizeCollectionFlags($request->validated(), $request);
 
         if ($request->hasFile('cover_image')) {
             $bookData['cover_image'] = $request->file('cover_image')->store('books', 'public');
@@ -93,7 +109,7 @@ class BookController extends Controller
      */
     public function update(UpdateBookRequest $request, Book $book): RedirectResponse
     {
-        $bookData = $request->validated();
+        $bookData = $this->normalizeCollectionFlags($request->validated(), $request);
 
         if ($request->hasFile('cover_image')) {
             $oldCover = $book->cover_image;
@@ -117,6 +133,15 @@ class BookController extends Controller
         $book->delete();
 
         return redirect()->route('admin.books.index')->with('success', 'Buku berhasil dihapus.');
+    }
+
+    private function normalizeCollectionFlags(array $bookData, Request $request): array
+    {
+        foreach (['is_popular', 'is_bestseller'] as $flag) {
+            $bookData[$flag] = $request->boolean($flag);
+        }
+
+        return $bookData;
     }
 
     private function deleteStoredCover(?string $coverPath): void

@@ -40,7 +40,6 @@ class StoreBookRequest extends FormRequest
             'description' => ['nullable', 'string'],
             'isbn' => ['nullable', 'string', 'max:255', Rule::unique('books', 'isbn')],
             'published_at' => ['nullable', 'date'],
-            'is_new' => ['sometimes', 'boolean'],
             'is_popular' => ['sometimes', 'boolean'],
             'is_bestseller' => ['sometimes', 'boolean'],
         ];

@@ -12,10 +12,10 @@ class Book extends Model
     /** @use HasFactory<BookFactory> */
     use HasFactory;
 
-    public function getCoverImageUrlAttribute(): ?string
+    public function getCoverImageUrlAttribute(): string
     {
         if (! $this->cover_image) {
-            return null;
+            return asset('images/default-book-cover.svg');
         }
 
         if (Str::startsWith($this->cover_image, ['http://', 'https://'])) {
@@ -38,7 +38,6 @@ class Book extends Model
         'category',
         'description',
         'isbn',
-        'is_new',
         'is_popular',
         'is_bestseller',
         'published_at',
@@ -53,7 +52,6 @@ class Book extends Model
      * @var array<string, string>
      */
     protected $casts = [
-        'is_new' => 'boolean',
         'is_popular' => 'boolean',
         'is_bestseller' => 'boolean',
         'published_at' => 'datetime',

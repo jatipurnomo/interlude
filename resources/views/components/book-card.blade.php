@@ -2,7 +2,7 @@
 <div class="book-card card h-100 shadow-sm border-0 overflow-hidden">
     <!-- Book Cover Image with Badge -->
     <div class="book-cover position-relative overflow-hidden" style="height: 280px; background: #f5f1ed;">
-        <img src="{{ $book->cover_image_url ?: 'https://via.placeholder.com/200x300?text=Book' }}"
+        <img src="{{ $book->cover_image_url }}"
              alt="{{ $book->title }}" 
              class="card-img-top h-100 object-fit-cover" 
              loading="lazy"
@@ -26,7 +26,7 @@
         <!-- Overlay on Hover -->
         <div class="book-overlay position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center" 
              style="background: rgba(0,0,0,0.7); opacity: 0; transition: opacity 0.3s ease;">
-            <a href="#" class="btn btn-primary btn-sm">
+            <a href="{{ route('books.show', $book) }}" class="btn btn-primary btn-sm">
                 <i class="fas fa-eye me-2"></i>Lihat Detail
             </a>
         </div>
@@ -51,12 +51,16 @@
         
         <!-- Stats Row -->
         <div class="d-flex align-items-center gap-2 text-muted small mb-3">
-            <span title="Wishlist">
-                <i class="far fa-heart text-danger"></i> {{ $book->wishlist_count }}
-            </span>
+<span title="Wishlist">
+                            <i class="far fa-heart text-danger"></i> <span data-wishlist-count>{{ number_format($book->wishlist_count) }}</span>
+                        </span>
             <span>•</span>
             <span title="Sold">
                 <i class="fas fa-shopping-bag"></i> {{ number_format($book->sold_count) }}
+            </span>
+            <span>•</span>
+            <span title="Dilihat">
+                <i class="far fa-eye"></i> {{ number_format($book->view_count) }}
             </span>
         </div>
         
@@ -68,12 +72,12 @@
             
             <!-- Action Buttons -->
             <div class="d-flex gap-2">
-                <button class="btn btn-primary btn-sm flex-grow-1">
+                <a href="{{ route('books.buy', $book) }}" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm flex-grow-1">
                     <i class="fas fa-shopping-cart me-1"></i>Beli
-                </button>
-                <button class="btn btn-outline-danger btn-sm">
-                    <i class="far fa-heart"></i>
-                </button>
+                </a>
+                <a href="{{ route('books.wishlist', $book) }}" class="wishlist-btn btn btn-outline-danger btn-sm">
+                        <i class="{{ in_array($book->id, session('wishlist', [])) ? 'fas fa-heart text-danger' : 'far fa-heart' }}"></i>
+                    </a>
             </div>
         </div>
     </div>

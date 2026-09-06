@@ -22,7 +22,7 @@ class BookSeeder extends Seeder
                 'category' => 'Fiksi',
                 'description' => 'Novel tentang kisah inspiratif pelajar di sebuah sekolah marginal di Belitong.',
                 'isbn' => '978-9793068-51-6',
-                'is_new' => false,
+
                 'is_popular' => true,
                 'is_bestseller' => true,
                 'published_at' => now()->subYears(5),
@@ -38,7 +38,7 @@ class BookSeeder extends Seeder
                 'category' => 'Fiksi',
                 'description' => 'Cerita tentang Negeri Belan yang dipimpin oleh para bedebah politisi.',
                 'isbn' => '978-9793689-23-1',
-                'is_new' => false,
+
                 'is_popular' => true,
                 'is_bestseller' => true,
                 'published_at' => now()->subYears(4),
@@ -54,7 +54,7 @@ class BookSeeder extends Seeder
                 'category' => 'Fiksi',
                 'description' => 'Kisah cinta tragis di tengah perjalanan laut yang penuh gejolak.',
                 'isbn' => '978-9793068-01-1',
-                'is_new' => false,
+
                 'is_popular' => true,
                 'is_bestseller' => true,
                 'published_at' => now()->subYears(3),
@@ -70,7 +70,7 @@ class BookSeeder extends Seeder
                 'category' => 'Fiksi',
                 'description' => 'Novel yang menceritakan tentang pencarian identitas dan kepulangan.',
                 'isbn' => '978-9793689-56-9',
-                'is_new' => false,
+
                 'is_popular' => false,
                 'is_bestseller' => false,
                 'published_at' => now()->subYears(2),
@@ -86,7 +86,7 @@ class BookSeeder extends Seeder
                 'category' => 'Fiksi',
                 'description' => 'Cerita fiksi ilmiah tentang teknologi transfer kesadaran.',
                 'isbn' => '978-9793689-78-1',
-                'is_new' => true,
+
                 'is_popular' => true,
                 'is_bestseller' => false,
                 'published_at' => now()->subMonths(2),
@@ -104,7 +104,7 @@ class BookSeeder extends Seeder
                 'category' => 'Sastra',
                 'description' => 'Koleksi lengkap puisi-puisi klasik dari penyair revolusioner.',
                 'isbn' => '978-9793068-12-7',
-                'is_new' => false,
+
                 'is_popular' => true,
                 'is_bestseller' => true,
                 'published_at' => now()->subYears(3),
@@ -120,7 +120,7 @@ class BookSeeder extends Seeder
                 'category' => 'Sastra',
                 'description' => 'Kumpulan puisi tentang cinta, kehilangan, dan nostalgia.',
                 'isbn' => '978-9793689-34-7',
-                'is_new' => false,
+
                 'is_popular' => false,
                 'is_bestseller' => false,
                 'published_at' => now()->subYears(1),
@@ -138,7 +138,7 @@ class BookSeeder extends Seeder
                 'category' => 'Self-Help',
                 'description' => 'Panduan praktis untuk membangun kebiasaan baik dan mengubah hidup.',
                 'isbn' => '978-9793689-45-3',
-                'is_new' => false,
+
                 'is_popular' => true,
                 'is_bestseller' => true,
                 'published_at' => now()->subYears(2),
@@ -154,7 +154,7 @@ class BookSeeder extends Seeder
                 'category' => 'Self-Help',
                 'description' => 'Mengubah cara berpikir untuk mencapai kesuksesan sejati.',
                 'isbn' => '978-9793689-67-5',
-                'is_new' => false,
+
                 'is_popular' => true,
                 'is_bestseller' => false,
                 'published_at' => now()->subYears(2),
@@ -170,7 +170,7 @@ class BookSeeder extends Seeder
                 'category' => 'Self-Help',
                 'description' => 'Tujuh kebiasaan untuk menjadi orang yang sangat efektif.',
                 'isbn' => '978-9793689-12-5',
-                'is_new' => false,
+
                 'is_popular' => false,
                 'is_bestseller' => false,
                 'published_at' => now()->subYears(3),
@@ -186,7 +186,7 @@ class BookSeeder extends Seeder
                 'category' => 'Self-Help',
                 'description' => 'Panduan membatasi penggunaan teknologi untuk hidup lebih sehat.',
                 'isbn' => '978-9793689-88-0',
-                'is_new' => true,
+
                 'is_popular' => true,
                 'is_bestseller' => false,
                 'published_at' => now()->subMonths(3),
@@ -204,7 +204,7 @@ class BookSeeder extends Seeder
                 'category' => 'Biografi',
                 'description' => 'Biografi lengkap kehidupan Bapak Proklamator Indonesia.',
                 'isbn' => '978-9793068-33-3',
-                'is_new' => false,
+
                 'is_popular' => true,
                 'is_bestseller' => true,
                 'published_at' => now()->subYears(4),
@@ -220,7 +220,7 @@ class BookSeeder extends Seeder
                 'category' => 'Biografi',
                 'description' => 'Biografi resmi Steve Jobs, founder Apple Inc.',
                 'isbn' => '978-9793689-56-1',
-                'is_new' => false,
+
                 'is_popular' => false,
                 'is_bestseller' => false,
                 'published_at' => now()->subYears(3),
@@ -238,7 +238,7 @@ class BookSeeder extends Seeder
                 'category' => 'Sejarah',
                 'description' => 'Panduan komprehensif tentang sejarah bangsa Indonesia.',
                 'isbn' => '978-9793689-71-4',
-                'is_new' => false,
+
                 'is_popular' => true,
                 'is_bestseller' => true,
                 'published_at' => now()->subYears(2),
@@ -254,7 +254,7 @@ class BookSeeder extends Seeder
                 'category' => 'Sejarah',
                 'description' => 'Dokumentasi detail lengkap tentang Perang Dunia kedua.',
                 'isbn' => '978-9793689-99-8',
-                'is_new' => true,
+
                 'is_popular' => false,
                 'is_bestseller' => false,
                 'published_at' => now()->subMonths(1),
@@ -272,7 +272,7 @@ class BookSeeder extends Seeder
                 'category' => 'Anak-anak',
                 'description' => 'Kumpulan cerita rakyat tentang si Kancil yang cerdik.',
                 'isbn' => '978-9793068-44-9',
-                'is_new' => false,
+
                 'is_popular' => true,
                 'is_bestseller' => true,
                 'published_at' => now()->subYears(5),
@@ -288,7 +288,7 @@ class BookSeeder extends Seeder
                 'category' => 'Anak-anak',
                 'description' => 'Kumpulan dongeng indah untuk anak-anak sebelum tidur.',
                 'isbn' => '978-9793689-22-4',
-                'is_new' => false,
+
                 'is_popular' => false,
                 'is_bestseller' => false,
                 'published_at' => now()->subYears(2),
@@ -304,7 +304,7 @@ class BookSeeder extends Seeder
                 'category' => 'Anak-anak',
                 'description' => 'Panduan sains menyenangkan untuk anak-anak dengan ilustrasi.',
                 'isbn' => '978-9793689-43-9',
-                'is_new' => true,
+
                 'is_popular' => true,
                 'is_bestseller' => false,
                 'published_at' => now()->subMonths(2),
