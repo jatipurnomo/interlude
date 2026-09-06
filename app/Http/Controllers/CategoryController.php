@@ -16,6 +16,7 @@ class CategoryController extends Controller
         Gate::authorize('viewAny', Category::class);
 
         $categories = Category::query()
+            ->withCount('books')
             ->when($request->string('search')->trim()->isNotEmpty(), function ($query) use ($request): void {
                 $search = $request->string('search')->trim()->toString();
                 $query->where('name', 'like', "%{$search}%")
@@ -89,6 +90,11 @@ class CategoryController extends Controller
     public function destroy(Category $category): RedirectResponse
     {
         Gate::authorize('delete', $category);
+
+        if ($category->books()->count() > 0) {
+            return redirect()->route('admin.categories.index')
+                ->with('error', 'Kategori "' . $category->name . '" tidak dapat dihapus karena masih memiliki ' . $category->books()->count() . ' buku. Hapus atau pindahkan buku terlebih dahulu.');
+        }
 
         $category->delete();
 

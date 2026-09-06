@@ -17,7 +17,12 @@
                     </div>
                     <div class="col-md-6">
                         <label for="category" class="form-label">Kategori</label>
-                        <input id="category" name="category" type="text" value="{{ old('category', $book->category ?? '') }}" class="form-control @error('category') is-invalid @enderror" required>
+                        <select id="category" name="category" class="form-select @error('category') is-invalid @enderror" required>
+                            <option value="">Pilih Kategori</option>
+                            @foreach($categories as $cat)
+                                <option value="{{ $cat }}" {{ old('category', $book->category ?? '') === $cat ? 'selected' : '' }}>{{ $cat }}</option>
+                            @endforeach
+                        </select>
                         @error('category')<div class="invalid-feedback">{{ $message }}</div>@enderror
                     </div>
                     <div class="col-md-6">
@@ -96,6 +101,12 @@
 
         priceInput.closest('form').addEventListener('submit', function () {
             priceInput.value = priceInput.value.replace(/\D/g, '');
+        });
+
+        $('#category').select2({
+            theme: 'bootstrap-5',
+            width: '100%',
+            placeholder: 'Pilih Kategori'
         });
     });
 </script>

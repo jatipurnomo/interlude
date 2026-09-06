@@ -1,7 +1,7 @@
 <header class="dashboard-navbar">
     <div class="d-flex align-items-center gap-3">
         <button class="icon-button d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#dashboardSidebar" aria-controls="dashboardSidebar" aria-label="Open navigation"><i class="bi bi-list" aria-hidden="true"></i></button>
-        <div><p class="eyebrow mb-1">Admin workspace</p><h1 class="page-title mb-0">{{ request()->routeIs('admin.books.*') ? 'Books' : (request()->routeIs('profile.edit') ? 'Profile' : 'Dashboard') }}</h1></div>
+        <div><p class="eyebrow mb-1">Admin workspace</p><h1 class="page-title mb-0">{{ request()->routeIs('admin.books.*') ? 'Books' : (request()->routeIs('admin.categories.*') ? 'Categories' : (request()->routeIs('profile.edit') ? 'Profile' : 'Dashboard')) }}</h1></div>
     </div>
     <div class="navbar-actions">
         <div class="dropdown">

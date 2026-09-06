@@ -9,6 +9,7 @@
         <a href="{{ route('admin.categories.create') }}" class="btn btn-primary"><i class="bi bi-plus-lg me-1"></i>Tambah Kategori</a>
     </div>
     @if (session('success'))<div class="alert alert-success alert-fade">{{ session('success') }}</div>@endif
+    @if (session('error'))<div class="alert alert-danger">{{ session('error') }}</div>@endif
     <section class="dashboard-panel">
         <form method="GET" action="{{ route('admin.categories.index') }}" class="row g-2 mb-4">
             <div class="col-12 col-md-auto ms-md-auto">

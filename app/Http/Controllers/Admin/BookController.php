@@ -65,7 +65,9 @@ class BookController extends Controller
     {
         Gate::authorize('create', Book::class);
 
-        return view('admin.books.create');
+        $categories = \App\Models\Category::orderBy('name')->pluck('name');
+
+        return view('admin.books.create', compact('categories'));
     }
 
     /**
@@ -101,7 +103,9 @@ class BookController extends Controller
     {
         Gate::authorize('update', $book);
 
-        return view('admin.books.edit', compact('book'));
+        $categories = \App\Models\Category::orderBy('name')->pluck('name');
+
+        return view('admin.books.edit', compact('book', 'categories'));
     }
 
     /**
