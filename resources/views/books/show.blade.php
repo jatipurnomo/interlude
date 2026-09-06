@@ -41,10 +41,6 @@
                         <dd>{{ $book->isbn ?: 'Belum tersedia' }}</dd>
                     </div>
                     <div class="book-detail-meta-row">
-                        <dt>ISBN</dt>
-                        <dd>{{ $book->isbn ?: 'Belum tersedia' }}</dd>
-                    </div>
-                    <div class="book-detail-meta-row">
                         <dt>Terbit</dt>
                         <dd>{{ $book->published_at?->format('d M Y') ?: 'Belum tersedia' }}</dd>
                     </div>
@@ -53,8 +49,12 @@
                         <dd>{{ number_format($book->sold_count) }}</dd>
                     </div>
                     <div class="book-detail-meta-row">
-                        <dt>Wishlist</dt>
+                        <dt>Suka</dt>
                         <dd data-wishlist-count>{{ number_format($book->wishlist_count) }}</dd>
+                    </div>
+                    <div class="book-detail-meta-row">
+                        <dt>Dilihat</dt>
+                        <dd>{{ number_format($book->view_count) }}</dd>
                     </div>
                 </dl>
 
@@ -64,7 +64,7 @@
                         <i class="fas fa-shopping-cart me-2" aria-hidden="true"></i>Beli Sekarang
                     </a>
                     <a href="{{ route('books.wishlist', $book) }}" class="wishlist-btn btn {{ $wished ? 'btn-danger' : 'btn-outline-danger' }} btn-lg">
-                        <i class="{{ $wished ? 'fas' : 'far' }} fa-heart me-2" aria-hidden="true"></i>Wishlist
+                        <i class="{{ $wished ? 'fas' : 'far' }} fa-heart me-2" aria-hidden="true"></i>Suka
                     </a>
                 </div>
             </div>

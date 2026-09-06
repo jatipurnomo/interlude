@@ -161,6 +161,9 @@
                 <h2 class="section-title">Buku Paling Banyak Dilihat</h2>
                 <p class="text-muted">Buku yang paling sering dilihat oleh pengunjung</p>
             </div>
+            <a href="{{ route('search') }}?collection=most-viewed" class="see-all">
+                Lihat Semua <i class="fas fa-arrow-right ms-2"></i>
+            </a>
         </div>
 
         <!-- Books Grid -->

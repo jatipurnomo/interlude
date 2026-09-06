@@ -26,7 +26,7 @@
         <!-- Overlay on Hover -->
         <div class="book-overlay position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center" 
              style="background: rgba(0,0,0,0.7); opacity: 0; transition: opacity 0.3s ease;">
-            <a href="#" class="btn btn-primary btn-sm">
+            <a href="{{ route('books.show', $book) }}" class="btn btn-primary btn-sm">
                 <i class="fas fa-eye me-2"></i>Lihat Detail
             </a>
         </div>

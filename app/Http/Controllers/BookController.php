@@ -15,6 +15,8 @@ class BookController extends Controller
      */
     public function show(Book $book): View
     {
+        $book->increment('view_count');
+
         return view('books.show', compact('book'));
     }
 
