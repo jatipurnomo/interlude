@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\BookController as AdminBookController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\BookController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
@@ -37,5 +38,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin/books/create', [AdminBookController::class, 'create'])->name('admin.books.create');
     Route::get('/admin/books/{book}', [AdminBookController::class, 'show'])->name('admin.books.show');
     Route::get('/admin/books/{book}/edit', [AdminBookController::class, 'edit'])->name('admin.books.edit');
+    Route::resource('admin/categories', CategoryController::class)->names('admin.categories');
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 });
