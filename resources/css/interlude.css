@@ -37,6 +37,11 @@ p {
 
 .navbar {
     border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    background-color: #212529 !important;
+}
+
+.offcanvas {
+    background-color: #212529 !important;
 }
 
 .navbar-brand {
@@ -993,6 +998,22 @@ html {
     .book-detail-cover { max-width: 320px; margin: 0 auto; }
     .book-detail-title { font-size: 1.5rem; }
     .book-detail-description { padding: 24px; }
+}
+
+@media (max-width: 575.98px) {
+    .search-page { padding: 24px 0 40px; }
+    .search-page-header { flex-direction: column; align-items: stretch; gap: 12px; margin-bottom: 20px; }
+    .search-page-title { font-size: 1.5rem; }
+    .search-result-card { grid-template-columns: 1fr; gap: 12px; padding: 12px; border-radius: 6px; }
+    .search-result-cover { width: 100%; height: 200px; }
+    .search-result-cover img { width: 100%; height: 200px; object-fit: cover; }
+    .search-result-title { font-size: 0.95rem; }
+    .search-result-author { font-size: 0.8rem; }
+    .search-result-description { font-size: 0.8rem; margin: 6px 0; -webkit-line-clamp: 2; display: -webkit-box; -webkit-box-orient: vertical; overflow: hidden; }
+    .search-result-meta { font-size: 0.75rem; gap: 4px; }
+    .search-result-meta span { display: flex; align-items: center; gap: 4px; }
+    .search-result-price { font-size: 0.9rem; }
+    .search-empty { padding: 40px 20px; }
 }
 
 @media (prefers-reduced-motion: reduce) {

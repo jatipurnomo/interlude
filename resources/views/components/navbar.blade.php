@@ -34,13 +34,13 @@
                         <a class="nav-link {{ request()->routeIs('blog') ? 'active' : '' }}" href="{{ route('blog') }}" @if(request()->routeIs('blog')) aria-current="page" @endif>Blog</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#galeri">Galeri</a>
+                        <a class="nav-link {{ request()->routeIs('youtube') ? 'active' : '' }}" href="{{ route('youtube') }}" @if(request()->routeIs('youtube')) aria-current="page" @endif>Galeri</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('home') }}#social">Tentang Kami</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#contact">Kontak</a>
+                        <a class="nav-link" href="https://wa.me/6282281572158" target="_blank" rel="noopener noreferrer">Kontak</a>
                     </li>
                 </ul>
                 

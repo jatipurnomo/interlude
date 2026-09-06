@@ -10,7 +10,10 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SearchController;
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\YouTubeController;
+
 Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/galeri', [YouTubeController::class, 'index'])->name('youtube');
 Route::get('/search', [SearchController::class, 'index'])->name('search');
 Route::get('/blog', [BlogController::class, 'index'])->name('blog');
 Route::get('/buku/{book}', [BookController::class, 'show'])->name('books.show');

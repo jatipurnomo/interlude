@@ -245,6 +245,32 @@
             }
         });
     });
-
 </script>
+
+@endsection
+
+@section('styles')
+<style>
+    @media (max-width: 575.98px) {
+        .book-section .row.g-4 > div:nth-child(n+5) {
+            display: none !important;
+        }
+        .section-title {
+            font-size: 1.25rem;
+        }
+        .section-header p {
+            font-size: 0.8rem;
+        }
+        .section-header .see-all {
+            font-size: 0.8rem;
+            white-space: nowrap;
+        }
+        .hero-cta, .btn-outline-light.btn-lg {
+            font-size: 0.75rem;
+            padding: 0.4rem 0.75rem;
+            display: inline-flex;
+            align-items: center;
+        }
+    }
+</style>
 @endsection
