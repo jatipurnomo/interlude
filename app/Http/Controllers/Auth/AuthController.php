@@ -35,7 +35,7 @@ class AuthController extends Controller
             // Regenerate session ID for security
             $request->session()->regenerate();
 
-            return redirect()->intended(route('home'))->with('success', 'Berhasil login!');
+            return redirect()->intended(route('dashboard'))->with('success', 'Berhasil login!');
         }
 
         // If login fails, show error message (generic for security)

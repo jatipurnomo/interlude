@@ -11,12 +11,20 @@
                 <h1 id="search-page-title" class="search-page-title">
                     @if($searchTerm !== '')
                         Hasil Pencarian
+                    @elseif($collection === 'bestseller')
+                        Buku Bestseller
+                    @elseif($collection === 'populer')
+                        Buku Populer
                     @else
                         Semua Buku
                     @endif
                 </h1>
                 @if($searchTerm !== '')
-                    <p class="mb-0 text-muted">Menampilkan hasil untuk <span class="search-page-query">“{{ $searchTerm }}”</span></p>
+                    <p class="mb-0 text-muted">Menampilkan hasil untuk <span class="search-page-query">"{{ $searchTerm }}"</span></p>
+                @elseif($collection === 'bestseller')
+                    <p class="mb-0 text-muted">Menampilkan semua buku berlabel Bestseller</p>
+                @elseif($collection === 'populer')
+                    <p class="mb-0 text-muted">Menampilkan semua buku berlabel Populer</p>
                 @else
                     <p class="mb-0 text-muted">Jelajahi koleksi Buku - Buku Interlude!</p>
                 @endif
@@ -38,9 +46,6 @@
                             </button>
                             <div class="search-result-content">
                                 <div class="d-flex flex-wrap gap-2 mb-2">
-                                    @if($book->is_new)
-                                        <span class="badge badge-new">BARU</span>
-                                    @endif
                                     @if($book->is_popular)
                                         <span class="badge badge-popular">POPULER</span>
                                     @endif
@@ -65,7 +70,7 @@
                                     <span><strong>ISBN:</strong> {{ $book->isbn ?: 'Belum tersedia' }}</span>
                                     <span><strong>Terbit:</strong> {{ $book->published_at?->format('d M Y') ?: 'Belum tersedia' }}</span>
                                     <span><i class="fas fa-shopping-bag me-1" aria-hidden="true"></i>{{ number_format($book->sold_count) }} terjual</span>
-                                    <span><i class="far fa-heart me-1" aria-hidden="true"></i>{{ number_format($book->wishlist_count) }} wishlist</span>
+                                    <span><i class="far fa-heart me-1" aria-hidden="true"></i>{{ number_format($book->wishlist_count) }} suka</span>
                                 </div>
                                 <div class="mt-3">
                                     <a href="{{ route('books.show', $book) }}" class="btn btn-primary btn-sm">

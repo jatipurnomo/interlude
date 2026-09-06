@@ -25,7 +25,6 @@ class BookFactory extends Factory
             'category' => fake()->randomElement(['Fiksi', 'Sastra', 'Self-Help', 'Biografi']),
             'description' => fake()->paragraph(),
             'isbn' => fake()->unique()->numerify('978-979-####-##-#'),
-            'is_new' => false,
             'is_popular' => false,
             'is_bestseller' => false,
             'published_at' => fake()->dateTimeBetween('-5 years', 'now'),

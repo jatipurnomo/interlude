@@ -45,14 +45,14 @@
         <!-- Section Header -->
         <div class="section-header mb-5">
             <div>
-                <h2 class="section-title">Koleksi Terbaru</h2>
+                <h2 class="section-title">Buku Terbaru</h2>
                 @if($searchTerm !== '')
                     <p class="text-muted mb-0">Hasil pencarian untuk: <strong>{{ $searchTerm }}</strong></p>
                 @else
-                    <p class="text-muted">Temukan buku-buku terbaru dari Penerbit Interlude</p>
+                    <p class="text-muted">Buku-buku terbaru dari Penerbit Interlude</p>
                 @endif
             </div>
-            <a href="#" class="see-all">
+            <a href="{{ route('search') }}" class="see-all">
                 Lihat Semua <i class="fas fa-arrow-right ms-2"></i>
             </a>
         </div>
@@ -71,7 +71,7 @@
                 @endforeach
             @else
                 <div class="col-12 text-center py-5">
-                    <p class="text-muted">Belum ada buku baru tersedia.</p>
+                    <p class="text-muted">Belum ada buku terbaru tersedia.</p>
                 </div>
             @endif
         </div>
@@ -85,9 +85,13 @@
         <div class="section-header mb-5">
             <div>
                 <h2 class="section-title">Buku Paling Laris</h2>
-                <p class="text-muted">Koleksi buku terlaris yang paling dicari pembaca</p>
+                @if($searchTerm !== '')
+                    <p class="text-muted mb-0">Hasil pencarian untuk: <strong>{{ $searchTerm }}</strong></p>
+                @else
+                    <p class="text-muted">Koleksi buku terlaris yang paling dicari pembaca</p>
+                @endif
             </div>
-            <a href="#" class="see-all">
+            <a href="{{ route('search') }}?collection=bestseller" class="see-all">
                 Lihat Semua <i class="fas fa-arrow-right ms-2"></i>
             </a>
         </div>
@@ -120,9 +124,9 @@
         <div class="section-header mb-5">
             <div>
                 <h2 class="section-title">Buku Populer</h2>
-                <p class="text-muted">Pilihan buku yang paling diminati pembaca</p>
+                <p class="text-muted">Pilihan buku favoritnya para pembaca</p>
             </div>
-            <a href="#" class="see-all">
+            <a href="{{ route('search') }}?collection=populer" class="see-all">
                 Lihat Semua <i class="fas fa-arrow-right ms-2"></i>
             </a>
         </div>
@@ -142,6 +146,38 @@
             @else
                 <div class="col-12 text-center py-5">
                     <p class="text-muted">Belum ada buku populer tersedia.</p>
+                </div>
+            @endif
+        </div>
+    </div>
+</section>
+
+<!-- Buku Paling Banyak Dilihat Section -->
+<section class="book-section animated-section" id="most-viewed-books" data-reveal>
+    <div class="container">
+        <!-- Section Header -->
+        <div class="section-header mb-5">
+            <div>
+                <h2 class="section-title">Buku Paling Banyak Dilihat</h2>
+                <p class="text-muted">Buku yang paling sering dilihat oleh pengunjung</p>
+            </div>
+        </div>
+
+        <!-- Books Grid -->
+        <div class="row g-4">
+            @if($mostViewedBooks->count() > 0)
+                @foreach($mostViewedBooks as $book)
+                    <div class="col-lg-3 col-md-4 col-sm-6 reveal-item" style="--reveal-delay: {{ $loop->index * 80 }}ms;">
+                        @include('components.book-card', [
+                            'book' => $book,
+                            'badge' => null,
+                            'showRanking' => false
+                        ])
+                    </div>
+                @endforeach
+            @else
+                <div class="col-12 text-center py-5">
+                    <p class="text-muted">Belum ada buku tersedia.</p>
                 </div>
             @endif
         </div>

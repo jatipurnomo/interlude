@@ -58,6 +58,10 @@
             <span title="Sold">
                 <i class="fas fa-shopping-bag"></i> {{ number_format($book->sold_count) }}
             </span>
+            <span>•</span>
+            <span title="Dilihat">
+                <i class="far fa-eye"></i> {{ number_format($book->view_count) }}
+            </span>
         </div>
         
         <!-- Price -->

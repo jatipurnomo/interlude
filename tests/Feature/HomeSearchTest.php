@@ -16,7 +16,6 @@ class HomeSearchTest extends TestCase
             'title' => 'Buku Pencarian Interlude',
             'author' => 'Penulis Utama',
             'category' => 'Sastra',
-            'is_new' => true,
             'is_popular' => true,
             'is_bestseller' => true,
         ]);
@@ -24,7 +23,6 @@ class HomeSearchTest extends TestCase
             'title' => 'Buku Lainnya',
             'author' => 'Penulis Lain',
             'category' => 'Fiksi',
-            'is_new' => true,
             'is_popular' => true,
             'is_bestseller' => true,
         ]);
@@ -78,7 +76,6 @@ class HomeSearchTest extends TestCase
             'category' => 'Novel',
             'description' => 'Ini deskripsi buku publik.',
             'isbn' => '978-602-1234-56-7',
-            'is_new' => true,
             'is_popular' => true,
             'is_bestseller' => true,
         ]);
@@ -90,7 +87,6 @@ class HomeSearchTest extends TestCase
             ->assertSee('Penulis Publik')
             ->assertSee('Novel')
             ->assertSee('Ini deskripsi buku publik.')
-            ->assertSee('BARU')
             ->assertSee('BEST SELLER')
             ->assertSee('Deskripsi Buku');
     }
@@ -130,7 +126,7 @@ class HomeSearchTest extends TestCase
     {
         $book = Book::factory()->create([
             'title' => 'Buku Heart Merah',
-            'is_new' => true,
+            'is_popular' => true,
         ]);
 
         $this->from('/')->get(route('books.wishlist', $book));
@@ -146,7 +142,6 @@ class HomeSearchTest extends TestCase
         $book = Book::factory()->create([
             'title' => 'Buku Unwishlist',
             'wishlist_count' => 0,
-            'is_new' => true,
         ]);
 
         $this->from('/')->get(route('books.wishlist', $book));

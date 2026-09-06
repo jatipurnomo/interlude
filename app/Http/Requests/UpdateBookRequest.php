@@ -31,7 +31,6 @@ class UpdateBookRequest extends FormRequest
             'description' => ['nullable', 'string'],
             'isbn' => ['nullable', 'string', 'max:255', Rule::unique('books', 'isbn')->ignore($this->route('book'))],
             'published_at' => ['nullable', 'date'],
-            'is_new' => ['sometimes', 'boolean'],
             'is_popular' => ['sometimes', 'boolean'],
             'is_bestseller' => ['sometimes', 'boolean'],
         ];

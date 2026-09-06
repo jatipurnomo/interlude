@@ -40,7 +40,6 @@ class BookControllerTest extends TestCase
             'description' => 'A story about books and belonging.',
             'isbn' => '978-1234-5678-90-1',
             'published_at' => '2026-09-04 10:00',
-            'is_new' => true,
             'is_popular' => false,
             'is_bestseller' => false,
         ];
@@ -129,7 +128,7 @@ class BookControllerTest extends TestCase
     public function test_unchecking_homepage_collections_persists_on_update(): void
     {
         $admin = User::factory()->create(['role' => 'admin']);
-        $book = Book::factory()->create(['is_new' => true, 'is_popular' => true, 'is_bestseller' => true]);
+        $book = Book::factory()->create(['is_popular' => true, 'is_bestseller' => true]);
 
         $response = $this->actingAs($admin)->put(route('admin.books.update', $book), [
             'title' => $book->title,
@@ -141,7 +140,6 @@ class BookControllerTest extends TestCase
         $response->assertRedirectToRoute('admin.books.show', $book);
 
         $book->refresh();
-        $this->assertFalse($book->is_new);
         $this->assertFalse($book->is_popular);
         $this->assertFalse($book->is_bestseller);
     }
@@ -156,14 +154,12 @@ class BookControllerTest extends TestCase
             'author' => $book->author,
             'price' => $book->price,
             'category' => $book->category,
-            'is_new' => '1',
             'is_popular' => '1',
         ]);
 
         $response->assertRedirectToRoute('admin.books.show', $book);
 
         $book->refresh();
-        $this->assertTrue($book->is_new);
         $this->assertTrue($book->is_popular);
         $this->assertFalse($book->is_bestseller);
     }

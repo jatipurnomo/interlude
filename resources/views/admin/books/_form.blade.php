@@ -60,7 +60,7 @@
         <div class="card border-0 shadow-sm">
             <div class="card-body p-4">
                 <h2 class="h5 mb-3">Homepage collections</h2>
-                @foreach(['is_new' => 'Buku Terbaru', 'is_popular' => 'Buku Populer', 'is_bestseller' => 'Bestseller'] as $field => $label)
+                @foreach(['is_popular' => 'Buku Populer', 'is_bestseller' => 'Bestseller'] as $field => $label)
                     <div class="form-check mb-3">
                         <input id="{{ $field }}" name="{{ $field }}" value="1" type="checkbox" class="form-check-input" @checked(old($field, $book->$field ?? false))>
                         <label for="{{ $field }}" class="form-check-label">{{ $label }}</label>

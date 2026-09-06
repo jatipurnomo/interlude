@@ -121,7 +121,7 @@ class BookController extends Controller
 
     private function normalizeCollectionFlags(array $bookData, Request $request): array
     {
-        foreach (['is_new', 'is_popular', 'is_bestseller'] as $flag) {
+        foreach (['is_popular', 'is_bestseller'] as $flag) {
             $bookData[$flag] = $request->boolean($flag);
         }
 

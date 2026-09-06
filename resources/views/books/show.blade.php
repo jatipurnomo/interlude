@@ -19,7 +19,6 @@
             </div>
             <div class="book-detail-info">
                 <div class="d-flex flex-wrap gap-2 mb-3">
-                    @if($book->is_new)<span class="badge badge-new">BARU</span>@endif
                     @if($book->is_popular)<span class="badge badge-popular">POPULER</span>@endif
                     @if($book->is_bestseller)<span class="badge badge-bestseller">BEST SELLER</span>@endif
                 </div>
