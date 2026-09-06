@@ -22,6 +22,8 @@ class BookController extends Controller
     {
         Gate::authorize('viewAny', Book::class);
 
+        $categories = Book::distinct()->pluck('category')->filter()->sort()->values();
+
         $books = Book::query()
             ->when($request->string('search')->trim()->isNotEmpty(), function ($query) use ($request): void {
                 $search = $request->string('search')->trim()->toString();
@@ -32,6 +34,17 @@ class BookController extends Controller
                         ->orWhere('isbn', 'like', "%{$search}%");
                 });
             })
+            ->when($request->string('category')->trim()->isNotEmpty(), function ($query) use ($request): void {
+                $query->where('category', $request->string('category')->trim()->toString());
+            })
+            ->when($request->string('collection')->trim()->isNotEmpty(), function ($query) use ($request): void {
+                $collection = $request->string('collection')->trim()->toString();
+                if ($collection === 'popular') {
+                    $query->where('is_popular', true);
+                } elseif ($collection === 'bestseller') {
+                    $query->where('is_bestseller', true);
+                }
+            })
             ->orderBy('id', 'desc')
             ->paginate(10)
             ->withQueryString();
@@ -39,6 +52,9 @@ class BookController extends Controller
         return view('admin.books.index', [
             'books' => $books,
             'search' => $request->string('search')->trim()->toString(),
+            'categories' => $categories,
+            'selectedCategory' => $request->string('category')->trim()->toString(),
+            'selectedCollection' => $request->string('collection')->trim()->toString(),
         ]);
     }
 

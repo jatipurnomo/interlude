@@ -57,8 +57,11 @@
             const filledButton = link.classList.contains('btn-lg');
 
             const csrfToken = document.querySelector('meta[name="csrf-token"]');
-            const headers = { 'X-Requested-With': 'XMLHttpRequest', 'Accept': 'application/json' };
-            if (csrfToken) headers['X-CSRF-TOKEN'] = csrfToken.getAttribute('content');
+            const headers = {
+                'X-Requested-With': 'XMLHttpRequest',
+                'Accept': 'application/json',
+                'X-CSRF-TOKEN': csrfToken ? csrfToken.getAttribute('content') : ''
+            };
 
             fetch(url, { method: 'POST', headers: headers, credentials: 'same-origin' })
                 .then(function (response) {
@@ -67,21 +70,21 @@
                 })
                 .then(function (data) {
                     if (filledButton) {
+                        link.classList.remove('btn-danger', 'btn-outline-danger');
                         link.classList.add(data.wished ? 'btn-danger' : 'btn-outline-danger');
-                        link.classList.remove(data.wished ? 'btn-outline-danger' : 'btn-danger');
                     }
                     const icon = link.querySelector('i');
                     if (icon) {
-                        icon.classList.toggle('fas', data.wished);
-                        icon.classList.toggle('far', !data.wished);
-                        icon.classList.toggle('text-danger', data.wished);
+                        icon.classList.remove('fas', 'far', 'text-danger');
+                        icon.classList.add(data.wished ? 'fas' : 'far');
+                        if (data.wished) icon.classList.add('text-danger');
                     }
                     scope.querySelectorAll('[data-wishlist-count]').forEach(function (el) {
                         el.textContent = Number(data.wishlist_count).toLocaleString('id-ID');
                     });
                 })
                 .catch(function () {
-                    window.location.href = url;
+                    window.location.reload();
                 });
         });
     </script>

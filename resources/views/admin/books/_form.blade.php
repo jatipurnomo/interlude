@@ -22,7 +22,7 @@
                     </div>
                     <div class="col-md-6">
                         <label for="price" class="form-label">Harga (Rp)</label>
-                        <input id="price" name="price" type="number" min="0" step="0.01" value="{{ old('price', $book->price ?? '') }}" class="form-control @error('price') is-invalid @enderror" required>
+                        <input id="price" name="price" type="text" inputmode="numeric" value="{{ old('price', isset($book) && $book->price ? number_format((int) $book->price, 0, ',', '.') : '') }}" class="form-control @error('price') is-invalid @enderror" required>
                         @error('price')<div class="invalid-feedback">{{ $message }}</div>@enderror
                     </div>
                     <div class="col-md-6">
@@ -75,3 +75,28 @@
     <a href="{{ route('admin.books.index') }}" class="btn btn-light">Batal</a>
     <button type="submit" class="btn btn-primary"><i class="bi bi-check2 me-1"></i>{{ isset($book) ? 'Simpan Perubahan' : 'Simpan Buku' }}</button>
 </div>
+
+@section('scripts')
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const priceInput = document.getElementById('price');
+
+        function formatNumber(value) {
+            const digits = value.replace(/\D/g, '');
+            return digits.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+        }
+
+        priceInput.addEventListener('input', function () {
+            const cursorPos = this.selectionStart;
+            const oldLen = this.value.length;
+            this.value = formatNumber(this.value);
+            const newLen = this.value.length;
+            this.setSelectionRange(cursorPos + (newLen - oldLen), cursorPos + (newLen - oldLen));
+        });
+
+        priceInput.closest('form').addEventListener('submit', function () {
+            priceInput.value = priceInput.value.replace(/\D/g, '');
+        });
+    });
+</script>
+@endsection
