@@ -55,17 +55,18 @@
                     </div>
                     <div class="book-detail-meta-row">
                         <dt>Wishlist</dt>
-                        <dd>{{ number_format($book->wishlist_count) }}</dd>
+                        <dd data-wishlist-count>{{ number_format($book->wishlist_count) }}</dd>
                     </div>
                 </dl>
 
+                @php($wished = in_array($book->id, session('wishlist', [])))
                 <div class="book-detail-actions">
-                    <a href="https://wa.me/6282281572158?text={{ urlencode('Halo Kak, saya ingin membeli buku "' . $book->title . '" karya ' . $book->author . '.') }}" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-lg">
+                    <a href="{{ route('books.buy', $book) }}" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-lg">
                         <i class="fas fa-shopping-cart me-2" aria-hidden="true"></i>Beli Sekarang
                     </a>
-                    <button class="btn btn-outline-danger btn-lg">
-                        <i class="far fa-heart me-2" aria-hidden="true"></i>Wishlist
-                    </button>
+                    <a href="{{ route('books.wishlist', $book) }}" class="wishlist-btn btn {{ $wished ? 'btn-danger' : 'btn-outline-danger' }} btn-lg">
+                        <i class="{{ $wished ? 'fas' : 'far' }} fa-heart me-2" aria-hidden="true"></i>Wishlist
+                    </a>
                 </div>
             </div>
         </div>

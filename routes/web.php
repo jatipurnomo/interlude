@@ -14,6 +14,8 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/search', [SearchController::class, 'index'])->name('search');
 Route::get('/blog', [BlogController::class, 'index'])->name('blog');
 Route::get('/buku/{book}', [BookController::class, 'show'])->name('books.show');
+Route::get('/beli/{book}', [BookController::class, 'buy'])->name('books.buy');
+Route::match(['get', 'post'], '/wishlist/{book}', [BookController::class, 'wishlist'])->name('books.wishlist');
 
 // Authentication Routes
 Route::middleware('guest')->group(function () {

@@ -51,9 +51,9 @@
         
         <!-- Stats Row -->
         <div class="d-flex align-items-center gap-2 text-muted small mb-3">
-            <span title="Wishlist">
-                <i class="far fa-heart text-danger"></i> {{ $book->wishlist_count }}
-            </span>
+<span title="Wishlist">
+                            <i class="far fa-heart text-danger"></i> <span data-wishlist-count>{{ number_format($book->wishlist_count) }}</span>
+                        </span>
             <span>•</span>
             <span title="Sold">
                 <i class="fas fa-shopping-bag"></i> {{ number_format($book->sold_count) }}
@@ -68,12 +68,12 @@
             
             <!-- Action Buttons -->
             <div class="d-flex gap-2">
-                <a href="https://wa.me/6282281572158?text={{ urlencode('Halo Kak, saya ingin membeli buku "' . $book->title . '" karya ' . $book->author . '.') }}" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm flex-grow-1">
+                <a href="{{ route('books.buy', $book) }}" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm flex-grow-1">
                     <i class="fas fa-shopping-cart me-1"></i>Beli
                 </a>
-                <button class="btn btn-outline-danger btn-sm">
-                    <i class="far fa-heart"></i>
-                </button>
+                <a href="{{ route('books.wishlist', $book) }}" class="wishlist-btn btn btn-outline-danger btn-sm">
+                        <i class="{{ in_array($book->id, session('wishlist', [])) ? 'fas fa-heart text-danger' : 'far fa-heart' }}"></i>
+                    </a>
             </div>
         </div>
     </div>

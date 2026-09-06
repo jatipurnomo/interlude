@@ -50,7 +50,7 @@ class HomeController extends Controller
                         ->orWhere('category', 'like', "%{$searchTerm}%");
                 });
             })
-            ->orderBy('id', 'desc')
+            ->orderBy('sold_count', 'desc')
             ->take(8)
             ->get();
 

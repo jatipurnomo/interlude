@@ -19,6 +19,8 @@
     <!-- Custom CSS -->
     @vite(['resources/css/interlude.css'])
     
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     @yield('styles')
 </head>
 <body>
@@ -42,7 +44,48 @@
     
     <!-- Custom JS -->
     <script src="{{ asset('js/app.js') }}"></script>
-    
+
+    <script>
+        document.addEventListener('click', function (e) {
+            const link = e.target.closest('.wishlist-btn');
+            if (!link) return;
+
+            e.preventDefault();
+
+            const url = link.getAttribute('href');
+            const scope = link.closest('.book-card, .book-detail-info') || document;
+            const filledButton = link.classList.contains('btn-lg');
+
+            const csrfToken = document.querySelector('meta[name="csrf-token"]');
+            const headers = { 'X-Requested-With': 'XMLHttpRequest', 'Accept': 'application/json' };
+            if (csrfToken) headers['X-CSRF-TOKEN'] = csrfToken.getAttribute('content');
+
+            fetch(url, { method: 'POST', headers: headers, credentials: 'same-origin' })
+                .then(function (response) {
+                    if (!response.ok) throw new Error('Wishlist request failed');
+                    return response.json();
+                })
+                .then(function (data) {
+                    if (filledButton) {
+                        link.classList.add(data.wished ? 'btn-danger' : 'btn-outline-danger');
+                        link.classList.remove(data.wished ? 'btn-outline-danger' : 'btn-danger');
+                    }
+                    const icon = link.querySelector('i');
+                    if (icon) {
+                        icon.classList.toggle('fas', data.wished);
+                        icon.classList.toggle('far', !data.wished);
+                        icon.classList.toggle('text-danger', data.wished);
+                    }
+                    scope.querySelectorAll('[data-wishlist-count]').forEach(function (el) {
+                        el.textContent = Number(data.wishlist_count).toLocaleString('id-ID');
+                    });
+                })
+                .catch(function () {
+                    window.location.href = url;
+                });
+        });
+    </script>
+
     @yield('scripts')
 </body>
 </html>
