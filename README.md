@@ -1,58 +1,219 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Interlude
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+**Interlude** is a literary and book publishing platform built with modern web technologies. It serves as a comprehensive book catalog, digital reading experience, and content management system with an admin dashboard.
 
-## About Laravel
+![Laravel](https://img.shields.io/badge/Laravel-13-red?style=flat-square&logo=laravel)
+![PHP](https://img.shields.io/badge/PHP-8.3-777BB4?style=flat-square&logo=php)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4.0-38B2AC?style=flat-square&logo=tailwindcss)
+![Vite](https://img.shields.io/badge/Vite-8.0-646CFF?style=flat-square&logo=vite)
+![MySQL](https://img.shields.io/badge/MySQL-8.0-4479A1?style=flat-square&logo=mysql)
+![Redis](https://img.shields.io/badge/Redis-7.0-DC382D?style=flat-square&logo=redis)
+![JavaScript](https://img.shields.io/badge/JavaScript-ES6+F7DF1E?style=flat-square&logo=javascript)
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Table of Contents
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- [Features](#features)
+- [Technologies Used](#technologies-used)
+- [Architecture](#architecture)
+- [Installation](#installation)
+- [Project Structure](#project-structure)
+- [Routes](#routes)
+- [Admin Panel](#admin-panel)
+- [Configuration](#configuration)
+- [Deployment](#deployment)
+- [License](#license)
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Features
 
-## Learning Laravel
+### User-Facing
+- **Book Catalog** — Browse and search through a curated collection of books
+- **Book Details & Purchase** — View detailed book information and purchase flow
+- **Wishlist** — Add books to a personal wishlist
+- **Blog** — Read articles and literary content
+- **Gallery** — Interactive gallery with YouTube video integration
+- **Search** — Full-text search across books and content
+- **Authentication** — User login and registration system
+- **Profile Management** — Edit and update user profiles
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### Admin Dashboard
+- **Book Management** — Full CRUD for books (create, read, update, delete)
+- **Category Management** — Manage book categories and metadata
+- **Dashboard Statistics** — Overview of platform metrics and analytics
+- **Search Feature** — Advanced search and filtering
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Technologies Used
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+### Backend
+- **[Laravel 13](https://laravel.com)** — PHP framework for server-side logic
+- **[PHP 8.3](https://www.php.net)** — Programming language with modern features
+- **[MySQL](https://www.mysql.com)** — Relational database management system
+- **[Redis](https://redis.io)** — In-memory data store for caching and queues
 
-## Agentic Development
+### Frontend
+- **[Vite](https://vitejs.dev)** — Next-generation frontend build tool
+- **[Tailwind CSS 4.0](https://tailwindcss.com)** — Utility-first CSS framework
+- **[Alpine.js](https://alpinejs.dev)** — JavaScript framework for reactive UI components
+- **[Poppins Font](https://fonts.google.com/specimen/Poppins)** — Google Fonts for typography
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+### DevOps & Tooling
+- **[Composer](https://getcomposer.org)** — PHP dependency management
+- **[NPM](https://www.npmjs.com)** — Node.js package management
+- **[PHPUnit](https://phpunit.de)** — Testing framework
+- **[Pint](https://github.com/laravel/pint)** — Code style fixer
 
-```bash
-composer require laravel/boost --dev
+## Architecture
 
-php artisan boost:install
+The project follows the **MVC (Model-View-Controller)** pattern:
+
+```
+┌─────────────┐     ┌──────────────┐     ┌─────────────┐
+│   Frontend   │────▶│    Routes    │────▶│  Controllers │
+│  (Blade +    │     │  (web.php)   │     │  (PHP)       │
+│  Tailwind)   │◀────│              │◀────│   Models     │
+└─────────────┘     └──────────────┘     └─────────────┘
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+- **Model** — Eloquent ORM for database interactions (`app/Models/`)
+- **View** — Blade templates with Tailwind CSS styling (`resources/views/`)
+- **Controller** — Request handling and business logic (`app/Http/Controllers/`)
+
+## Installation
+
+### Prerequisites
+- PHP 8.3+
+- MySQL 8.0+
+- Redis
+- Node.js 18+
+- Composer
+- NPM
+
+### Steps
+
+```bash
+# Clone the repository
+git clone https://github.com/jatipurnomo/interlude.git
+cd interlude
+
+# Install PHP dependencies
+composer install
+
+# Install Node.js dependencies
+npm install
+
+# Copy and configure environment file
+cp .env.example .env
+php artisan key:generate
+
+# Configure database in .env (DB_CONNECTION, DB_HOST, DB_DATABASE, etc.)
+
+# Run migrations
+php artisan migrate
+
+# Build frontend assets
+npm run build
+
+# Start development server
+php artisan serve
+
+# Start Vite dev server (in another terminal)
+npm run dev
+```
+
+## Project Structure
+
+```
+interlude/
+├── app/                  # Application code (Models, Controllers, etc.)
+│   ├── Models/           # Eloquent models (User, Book, Category, etc.)
+│   ├── Http/Controllers/ # Route controllers
+│   └── Providers/        # Service providers
+├── bootstrap/            # Application bootstrap files
+├── config/               # Laravel configuration files
+├── database/             # Migrations and seeders
+├── public/               # Publicly accessible files
+├── resources/
+│   ├── views/            # Blade templates
+│   │   ├── layouts/      # Main layout files
+│   │   ├── components/   # Reusable UI components
+│   │   ├── admin/        # Admin panel views
+│   │   ├── auth/         # Authentication views
+│   │   └── ...           # Page views (home, blog, dashboard, etc.)
+│   ├── css/              # Stylesheets (app.css, dashboard.css, etc.)
+│   └── js/               # JavaScript assets
+├── routes/               # Route definitions
+├── storage/              # Cached files, logs, uploads
+├── tests/                # Test suites
+├── vendor/               # Composer dependencies
+├── vite.config.js        # Vite build configuration
+├── composer.json         # PHP dependencies
+├── package.json          # Node.js dependencies
+└── .env                  # Environment configuration
+```
+
+## Routes
+
+### Public Routes
+| Route | Controller | Description |
+|-------|-----------|-------------|
+| `/` | `HomeController@index` | Homepage |
+| `/blog` | `BlogController@index` | Blog page |
+| `/galeri` | `YouTubeController@index` | Gallery page |
+| `/search` | `SearchController@index` | Search page |
+| `/buku/{book}` | `BookController@show` | Book detail page |
+| `/beli/{book}` | `BookController@buy` | Purchase page |
+| `/wishlist/{book}` | `BookController@wishlist` | Add to wishlist |
+| `/login` | `AuthController@showLogin` | Login page |
+
+### Authenticated Routes
+| Route | Controller | Description |
+|-------|-----------|-------------|
+| `/dashboard` | `DashboardController@index` | User dashboard |
+| `/profile` | `ProfileController@show/update` | User profile |
+| `/admin/books` | `AdminBookController` | Book management (CRUD) |
+| `/admin/categories` | `CategoryController` | Category management (CRUD) |
+| `/logout` | `AuthController@logout` | Logout |
+
+## Admin Panel
+
+The admin panel provides full content management capabilities:
+
+- **Books**: Create, read, update, and delete book entries with cover image uploads
+- **Categories**: Manage book categories for organizing content
+- **Dashboard**: View platform statistics and analytics
+- **Search**: Advanced search functionality across all content
+
+## Configuration
+
+Key configuration files:
+
+- **`.env`** — Environment variables (database, cache, mail, etc.)
+- **`config/app.php`** — Application settings
+- **`config/database.php`** — Database connections
+- **`config/cache.php`** — Cache driver configuration
+- **`config/queue.php`** — Queue driver configuration
+- **`config/mail.php`** — Email settings
+- **`vite.config.js`** — Frontend build configuration
+
+## Deployment
+
+For production deployment, refer to the deployment checklist:
+
+1. Set `APP_ENV=production` and `APP_DEBUG=false` in `.env`
+2. Configure production database credentials
+3. Set up Redis for caching and queues
+4. Configure SMTP mailer settings
+5. Run `php artisan config:cache`, `php artisan route:cache`, `php artisan view:cache`
+6. Run `php artisan storage:link` for file storage
+7. Set up HTTPS/SSL certificate
+8. Configure queue workers
 
 ## Contributing
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+1. Fork the repository
+2. Create a feature branch
+3. Commit your changes
+4. Push to the branch and open a Pull Request
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+This project is licensed under the MIT License.
