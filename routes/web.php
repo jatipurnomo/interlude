@@ -4,18 +4,19 @@ use App\Http\Controllers\Admin\BookController as AdminBookController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\BookController;
-use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\SearchController;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\YouTubeController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/blog', [BlogController::class, 'index'])->name('blog');
 Route::get('/galeri', [YouTubeController::class, 'index'])->name('youtube');
 Route::get('/search', [SearchController::class, 'index'])->name('search');
-Route::get('/blog', [BlogController::class, 'index'])->name('blog');
 Route::get('/buku/{book}', [BookController::class, 'show'])->name('books.show');
 Route::get('/beli/{book}', [BookController::class, 'buy'])->name('books.buy');
 Route::match(['get', 'post'], '/wishlist/{book}', [BookController::class, 'wishlist'])->name('books.wishlist');
@@ -37,5 +38,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin/books/create', [AdminBookController::class, 'create'])->name('admin.books.create');
     Route::get('/admin/books/{book}', [AdminBookController::class, 'show'])->name('admin.books.show');
     Route::get('/admin/books/{book}/edit', [AdminBookController::class, 'edit'])->name('admin.books.edit');
+    Route::resource('admin/categories', CategoryController::class)->names('admin.categories');
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 });

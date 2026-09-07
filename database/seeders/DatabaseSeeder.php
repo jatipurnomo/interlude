@@ -24,6 +24,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         // Seed books data
+        $this->call(CategorySeeder::class);
         $this->call(BookSeeder::class);
     }
 }

@@ -17,7 +17,12 @@
                     </div>
                     <div class="col-md-6">
                         <label for="category" class="form-label">Kategori</label>
-                        <input id="category" name="category" type="text" value="{{ old('category', $book->category ?? '') }}" class="form-control @error('category') is-invalid @enderror" required>
+                        <select id="category" name="category" class="form-select @error('category') is-invalid @enderror" required>
+                            <option value="">Pilih Kategori</option>
+                            @foreach($categories as $cat)
+                                <option value="{{ $cat }}" {{ old('category', $book->category ?? '') === $cat ? 'selected' : '' }}>{{ $cat }}</option>
+                            @endforeach
+                        </select>
                         @error('category')<div class="invalid-feedback">{{ $message }}</div>@enderror
                     </div>
                     <div class="col-md-6">
@@ -60,13 +65,13 @@
         <div class="card border-0 shadow-sm">
             <div class="card-body p-4">
                 <h2 class="h5 mb-3">Homepage collections</h2>
-                @foreach(['is_popular' => 'Buku Populer', 'is_bestseller' => 'Bestseller'] as $field => $label)
+                @foreach(['is_popular' => 'Buku Populer', 'is_bestseller' => 'Best Seller'] as $field => $label)
                     <div class="form-check mb-3">
                         <input id="{{ $field }}" name="{{ $field }}" value="1" type="checkbox" class="form-check-input" @checked(old($field, $book->$field ?? false))>
                         <label for="{{ $field }}" class="form-check-label">{{ $label }}</label>
                     </div>
                 @endforeach
-                <p class="small text-muted mb-0">Views, wishlist, dan sold count dikelola otomatis oleh sistem.</p>
+                <p class="small text-muted mb-0">Views, like, dan sold count dikelola otomatis oleh sistem.</p>
             </div>
         </div>
     </div>
@@ -96,6 +101,12 @@
 
         priceInput.closest('form').addEventListener('submit', function () {
             priceInput.value = priceInput.value.replace(/\D/g, '');
+        });
+
+        $('#category').select2({
+            theme: 'bootstrap-5',
+            width: '100%',
+            placeholder: 'Pilih Kategori'
         });
     });
 </script>
